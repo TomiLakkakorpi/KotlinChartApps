@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,11 +34,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LineChartAppV1Theme {
+
+                //Luodaan laatikko komponentti
                 Box(
                     modifier = Modifier
+
+                        //Asetetaan laatikon kooksi koko näyttö
                         .fillMaxSize()
+
+                        //Asetetaan laatikon reunoille 20dp tyhjä reuna
                         .padding(20.dp)
                 ) {
+                    //Kutsutaan funktiota, jossa muodostamme diagrammin
                     DrawLineChart()
                 }
             }
@@ -48,8 +53,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Luodaan funktio, joka rakentaa ja piirtää viivadiagrammin
+//Kotlinissa käyttöliittymäfunktiot merkitään @Composable merkinnällä
 @Composable
 fun DrawLineChart() {
+
+    //Luodaan pointsData lista, johon lisätään halutut arvot
     val pointsData: List<Point> =
         listOf(
             Point(1f, 25f),
@@ -63,7 +72,7 @@ fun DrawLineChart() {
             Point(9f, 49f),
             Point(10f, 15f)
         )
-
+    
     val steps = 10
 
     val xAxisData = AxisData.Builder()

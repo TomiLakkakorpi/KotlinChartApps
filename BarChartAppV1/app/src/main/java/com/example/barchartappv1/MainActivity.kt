@@ -27,7 +27,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BarChartAppV1Theme {
-                Box() {
+
+                //Luodaan laatikko komponentti
+                Box(
+                    modifier = Modifier
+                        //Asetetaan laatikon kooksi koko näyttö
+                        .fillMaxSize()
+
+                        //Asetetaan laatikon reunoille 20dp tyhjä reuna
+                        .padding(20.dp)
+                ) {
+                    //Kutsutaan funktiota, jossa muodostamme diagrammin
                     DrawBarChart()
                 }
             }
@@ -35,6 +45,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Luodaan funktio, joka rakentaa ja piirtää pylväsdiagrammin
+//Kotlinissa käyttöliittymäfunktiot merkitään @Composable merkinnällä
 @Composable
 fun DrawBarChart() {
     Box(
@@ -42,14 +54,18 @@ fun DrawBarChart() {
             .fillMaxSize()
             .padding(20.dp)
     ) {
+        //Asetetaan maksimiarvopalkeille, tässä voi myös tarkistaa taulukon suurimman arvon ja valita sen tähän
         val maxRange = 700000F
+
+        //Asetetaan montako "askelta" haluamme taulukolle. Maksimiarvon ollessa 700000, asettamalla arvo 7 saamme akselille viivat 100 tuhannen välein
         val yStepSize = 7
 
+        //Luodaan lista johon lisätään haluamamme data
         val list = arrayListOf(
             BarData(
-                point = Point(1F, 681802F),
+                point = Point(1F, 681802F), //Asetetaan ensin paikka x akselilla (monesko pylväs) ja sen jälkeen palkin arvo (korkeus)
                 Color.Cyan,
-                label = "Helsinki",
+                label = "Helsinki", //Asetetaan otsikko tiedolle
             ),
 
             BarData(
