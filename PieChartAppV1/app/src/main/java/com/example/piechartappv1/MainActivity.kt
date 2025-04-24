@@ -1,5 +1,6 @@
 package com.example.piechartappv1
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.activity.ComponentActivity
@@ -17,6 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import co.yml.charts.common.components.Legends
 import co.yml.charts.common.model.PlotType
 import co.yml.charts.common.utils.DataUtils
@@ -24,6 +28,17 @@ import co.yml.charts.ui.piechart.charts.PieChart
 import co.yml.charts.ui.piechart.models.PieChartConfig
 import co.yml.charts.ui.piechart.models.PieChartData
 import com.example.piechartappv1.ui.theme.PieChartAppV1Theme
+import com.example.piechartappv1.ui.theme.color1
+import com.example.piechartappv1.ui.theme.color2
+import com.example.piechartappv1.ui.theme.color3
+import com.example.piechartappv1.ui.theme.color4
+import com.example.piechartappv1.ui.theme.color5
+import com.example.piechartappv1.ui.theme.color6
+import com.example.piechartappv1.ui.theme.color7
+import com.example.piechartappv1.ui.theme.color8
+import com.example.piechartappv1.ui.theme.color9
+import com.example.piechartappv1.ui.theme.color10
+import com.example.piechartappv1.ui.theme.color11
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +56,17 @@ class MainActivity : ComponentActivity() {
                         //Asetetaan laatikon reunoille 20dp tyhjä reuna
                         .padding(20.dp)
                 ) {
-                    //Kutsutaan funktiota, jossa muodostamme diagrammin
-                    DrawPieChart()
+                    Column() {
+                        Text(
+                            text = "Suomen väkiluku kaupungittain",
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(0.dp, 20.dp),
+                            fontSize = 20.sp
+                        )
+
+                        //Kutsutaan funktiota, jossa muodostamme diagrammin
+                        DrawPieChart()
+                    }
                 }
 
             }
@@ -57,16 +81,17 @@ fun DrawPieChart() {
     // Luodaan pieChartData arvo, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä piirakalle haluttu väri.
     val pieChartData = PieChartData(
         slices = listOf(
-            PieChartData.Slice("Helsinki", 681802f, Color.Green),
-            PieChartData.Slice("Espoo", 318507f, Color.Yellow),
-            PieChartData.Slice("Tampere", 258770f, Color.Red),
-            PieChartData.Slice("Vantaa", 250073f, Color.Blue),
-            PieChartData.Slice("Oulu", 215503f, Color.Cyan),
-            PieChartData.Slice("Turku", 204618f, Color.Magenta),
-            PieChartData.Slice("Jyväskylä", 148622f, Color.LightGray),
-            PieChartData.Slice("Kuopio", 124825f, Color.Gray),
-            PieChartData.Slice("Lahti", 121202f, Color.DarkGray),
-            PieChartData.Slice("Pori", 83334f, Color.Black),
+            //Data tilastokeskukselta 31.12.2024
+            PieChartData.Slice("Helsinki", 684018f, color = color1),
+            PieChartData.Slice("Espoo", 320931f, color = color2),
+            PieChartData.Slice("Tampere", 260180f, color = color3),
+            PieChartData.Slice("Vantaa", 251269f, color = color4),
+            PieChartData.Slice("Oulu", 216152f, color = color5),
+            PieChartData.Slice("Turku", 206073f, color = color6),
+            PieChartData.Slice("Jyväskylä", 149194f, color = color7),
+            PieChartData.Slice("Kuopio", 125666f, color = color8),
+            PieChartData.Slice("Lahti", 121337f, color = color9),
+            PieChartData.Slice("Pori", 83305f, color = color10)
         ),
         //Määritellään minkälaisen kuvaajan haluamme
         plotType = PlotType.Pie
@@ -83,7 +108,7 @@ fun DrawPieChart() {
             chartPadding = 30,
             backgroundColor = Color.White,
             showSliceLabels = false,
-            animationDuration = 1500,
+            animationDuration = 2000,
         )
 
     // Luodaan sarake, jonka korkeudeksi määritetään 500dp

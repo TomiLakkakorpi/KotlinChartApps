@@ -72,7 +72,7 @@ fun DrawLineChart() {
             Point(9f, 49f),
             Point(10f, 15f)
         )
-    
+
     val steps = 10
 
     val xAxisData = AxisData.Builder()
