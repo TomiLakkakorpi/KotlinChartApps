@@ -1,8 +1,8 @@
 package com.example.piechartappv4
 
+import com.example.piechartappv4.ui.theme.PieChartAppV4Theme
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,13 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import co.yml.charts.common.components.Legends
-import co.yml.charts.common.model.PlotType
-import co.yml.charts.common.utils.DataUtils
-import co.yml.charts.ui.piechart.charts.DonutPieChart
-import co.yml.charts.ui.piechart.models.PieChartConfig
-import co.yml.charts.ui.piechart.models.PieChartData
-import com.example.piechartappv4.ui.theme.PieChartAppV4Theme
+
+//Color Imports
 import com.example.piechartappv4.ui.theme.color1
 import com.example.piechartappv4.ui.theme.color2
 import com.example.piechartappv4.ui.theme.color3
@@ -39,6 +34,14 @@ import com.example.piechartappv4.ui.theme.color8
 import com.example.piechartappv4.ui.theme.color9
 import com.example.piechartappv4.ui.theme.color10
 import com.example.piechartappv4.ui.theme.color11
+
+//YCharts Imports
+import co.yml.charts.common.components.Legends
+import co.yml.charts.common.model.PlotType
+import co.yml.charts.common.utils.DataUtils
+import co.yml.charts.ui.piechart.charts.DonutPieChart
+import co.yml.charts.ui.piechart.models.PieChartConfig
+import co.yml.charts.ui.piechart.models.PieChartData
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +81,7 @@ fun DrawDonutChart() {
     // Luodaan pieChartData arvo, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä piirakalle haluttu väri.
     val donutChartData = PieChartData(
         slices = listOf(
-            //Data tilastokeskukselta 31.12.2024
+            //Lisätään siivut, joihin lisätään otsikko, arvo ja väri
             PieChartData.Slice("Helsinki", 684018f, color = color1),
             PieChartData.Slice("Espoo", 320931f, color = color2),
             PieChartData.Slice("Tampere", 260180f, color = color3),
@@ -116,22 +119,25 @@ fun DrawDonutChart() {
         //Luodaan sarakkeiden väliin 20dp rako
         Spacer(modifier = Modifier.height(20.dp))
 
+        //Muodostetaan selitteiden luettelo ruudukkomuotoon
         Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(pieChartData = donutChartData, 3))
+
+        //Kutsutaan funktiota joka piirtää diagrammin
+        //Annetaan funktiolle luomamme data ja konfiguroinnit
         DonutPieChart(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(400.dp),
             donutChartData,
             donutChartConfig
-        ) {
-
-        }
+        ) {}
     }
 }
 
+// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun DonutChartPreview() {
     PieChartAppV4Theme {
         DrawDonutChart()
     }
