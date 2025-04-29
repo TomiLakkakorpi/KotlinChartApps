@@ -1,5 +1,6 @@
 package com.example.linechartappv1
 
+import com.example.linechartappv1.ui.theme.LineChartAppV1Theme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
+//YCharts Imports
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
@@ -26,7 +29,6 @@ import co.yml.charts.ui.linechart.model.LineStyle
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
-import com.example.linechartappv1.ui.theme.LineChartAppV1Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,8 +75,10 @@ fun DrawLineChart() {
             Point(10f, 15f)
         )
 
+    //Asetetaan montako "askelta" haluamme taulukolle y akselille
     val steps = 10
 
+    //Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
     val xAxisData = AxisData.Builder()
         .axisStepSize(35.dp)
         .topPadding(105.dp)
@@ -83,6 +87,7 @@ fun DrawLineChart() {
         .labelAndAxisLinePadding(15.dp)
         .build()
 
+    //Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
     val yAxisData = AxisData.Builder()
         .steps(steps)
         .labelAndAxisLinePadding(20.dp)
@@ -93,6 +98,7 @@ fun DrawLineChart() {
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
 
+    // Luodaan arvo johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
     val data = LineChartData(
         linePlotData = LinePlotData(
             lines = listOf(
@@ -111,6 +117,8 @@ fun DrawLineChart() {
         gridLines = GridLines()
     )
 
+    //Kutsutaan YCharts funktiota joka piirtää diagrammin
+    //Annetaan funktiolle lisäämämme data sekä x ja y akselien konfiguraatiot
     LineChart(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,6 +127,7 @@ fun DrawLineChart() {
     )
 }
 
+// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
