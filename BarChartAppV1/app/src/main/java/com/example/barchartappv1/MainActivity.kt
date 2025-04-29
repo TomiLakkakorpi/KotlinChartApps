@@ -1,6 +1,8 @@
 package com.example.barchartappv1
 
+import com.example.barchartappv1.ui.theme.BarChartAppV1Theme
 import android.os.Bundle
+
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,16 +12,25 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
+//Color Imports
+import com.example.barchartappv1.ui.theme.color1
+import com.example.barchartappv1.ui.theme.color2
+import com.example.barchartappv1.ui.theme.color3
+import com.example.barchartappv1.ui.theme.color4
+import com.example.barchartappv1.ui.theme.color5
+import com.example.barchartappv1.ui.theme.color6
+
+//YCharts Imports
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.model.Point
 import co.yml.charts.ui.barchart.BarChart
 import co.yml.charts.ui.barchart.models.BarChartData
 import co.yml.charts.ui.barchart.models.BarData
 import co.yml.charts.ui.barchart.models.BarStyle
-import com.example.barchartappv1.ui.theme.BarChartAppV1Theme
+import com.example.barchartappv1.ui.theme.color1
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,42 +74,49 @@ fun DrawBarChart() {
         //Luodaan lista johon lisätään haluamamme data
         val list = arrayListOf(
             BarData(
-                point = Point(1F, 681802F), //Asetetaan ensin paikka x akselilla (monesko pylväs) ja sen jälkeen palkin arvo (korkeus)
-                Color.Cyan,
-                label = "Helsinki", //Asetetaan otsikko tiedolle
+                //Asetetaan paikka x akselilla (monesko pylväs)
+                //Asetetaan palkin y arvo (palkin korkeus)
+                point = Point(1F, 681802F),
+
+                //Lisätään palkille väri
+                color = color1,
+
+                //Asetetaan otsikko tiedolle
+                label = "Helsinki",
             ),
 
             BarData(
                 point = Point(2F, 318507F),
-                Color.Blue,
+                color = color2,
                 label = "Espoo",
             ),
 
             BarData(
                 point = Point(3F, 258770F),
-                Color.Green,
+                color = color3,
                 label = "Tampere",
             ),
 
             BarData(
                 point = Point(4F, 250073F),
-                Color.Yellow,
+                color = color4,
                 label = "Vantaa",
             ),
 
             BarData(
                 point = Point(5F, 215530F),
-                Color.Red,
+                color = color5,
                 label = "Oulu",
             ),
 
             BarData(
                 point = Point(6F, 204618F),
-                Color.Magenta,
+                color = color6,
                 label = "Turku",
             ),
         )
 
+        // Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
         val xAxisData = AxisData.Builder()
             .axisStepSize(30.dp)
             .steps(list.size - 1)
@@ -108,6 +126,7 @@ fun DrawBarChart() {
             .labelData { index -> list[index].label }
             .build()
 
+        // Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
         val yAxisData = AxisData.Builder()
             .steps(yStepSize)
             .labelAndAxisLinePadding(20.dp)
@@ -115,6 +134,7 @@ fun DrawBarChart() {
             .labelData { index -> (index * (maxRange / yStepSize)).toString() }
             .build()
 
+        // Luodaan arvo, johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
         val barChartData = BarChartData(
             chartData = list,
             xAxisData = xAxisData,
@@ -127,14 +147,23 @@ fun DrawBarChart() {
             showXAxis = true,
             horizontalExtraSpace = 50.dp
         )
-        BarChart(modifier = Modifier.height(350.dp), barChartData = barChartData)
+
+        //Kutsutaan YCharts funktiota joka piirtää diagrammin
+        //Annetaan funktiolle lisäämämme data sekä x ja y akselien konfiguraatiot
+        BarChart(
+            modifier = Modifier
+                .height(350.dp),
+            barChartData = barChartData
+        )
     }
 }
 
+// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun BarChartPreview() {
     BarChartAppV1Theme {
+        //Kutsutaan funktiota, joka sisältää kaiken koodin diagrammin piirtämiseen, jotta sitä voidaan tarkastella preview ikkunassa
         DrawBarChart()
     }
 }
