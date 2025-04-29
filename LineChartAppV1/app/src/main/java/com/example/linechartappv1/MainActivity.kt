@@ -130,7 +130,7 @@ fun DrawLineChart() {
 // @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun LineChartPreview() {
     LineChartAppV1Theme {
         DrawLineChart()
     }
