@@ -84,7 +84,7 @@ fun DrawPieChart() {
     // Luodaan pieChartData arvo, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä piirakalle haluttu väri.
     val pieChartData = PieChartData(
         slices = listOf(
-            //Data tilastokeskukselta 31.12.2024
+            //Lisätään diagrammiin siivut, lisätään siivuihin otsikko, arvo ja väri
             PieChartData.Slice("Helsinki", 684018f, color = color1),
             PieChartData.Slice("Espoo", 320931f, color = color2),
             PieChartData.Slice("Tampere", 260180f, color = color3),
