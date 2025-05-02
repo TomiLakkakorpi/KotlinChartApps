@@ -8,7 +8,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import com.example.customuicomponent1.ui.theme.CustomUIComponent1Theme
 import androidx.compose.foundation.layout.Box
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +52,24 @@ class MainActivity : ComponentActivity() {
                     contentAlignment = Alignment.Center
                 ) {
                     Column () {
+
+                        //Luodaan arvo muuttuja,
+                        //Käytetään "by remember" jotta muuttujan arvo pysyy muistissa
                         var value by remember {mutableStateOf(0)}
 
-                        /* Text(
+                        Text(
                             textAlign = TextAlign.Center,
                             text = "Datan käyttö",
                             fontSize = 25.sp
-                        ) */
+                        )
 
+                        //Kutsutaan funktiota jolla piirretään kuvaajamme
                         CustomUIComponent1(
                             indicatorValue = value,
                             maxIndicatorValue = 100
-
                         )
 
+                        //Luodaan tekstikenttä, jossa näytetään muuttujan arvo
                         TextField(
                             value = value.toString(),
                             onValueChange = {
@@ -77,6 +79,8 @@ class MainActivity : ComponentActivity() {
                                     0
                                 }
                             },
+
+                            //Määritellään näppäimistön tyypiksi numeronäppäimistö
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Number
                             )
@@ -88,12 +92,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Kustutaan kuvaajan funktiota @Preview merkinnällä, jotta sitä voidaan tarkastella Preview ikkunassa
 @Composable
 @Preview
 fun PreviewCustomComponent1() {
     CustomUIComponent1()
 }
 
+//Funktio, jossa määritellään kuvaajan eri ominaisuuksia ja piirretään kuvaaja.
 @Composable
 fun CustomUIComponent1(
     canvasSize: Dp = 300.dp,
@@ -111,9 +117,14 @@ fun CustomUIComponent1(
     smallTextFontSize: TextUnit = 25.sp,
     smallTextColor: Color = Color.Black,
 ) {
+
     var allowedIndicatorValue by remember {
         mutableStateOf(maxIndicatorValue)
     }
+
+    //Tarkistetaan onko syötetty arvo sallituissa rajoissa
+    //Jos syötetty arvo on yli sallitun, asetetaan arvoksi annettu maksimiarvo
+    //Jos syötetty arvo on alle sallitun, asetetaan arvoksi minimiarvo
     allowedIndicatorValue = if (indicatorValue <= maxIndicatorValue) {
         indicatorValue
     } else {
@@ -125,9 +136,11 @@ fun CustomUIComponent1(
         animatedIndicatorValue = allowedIndicatorValue.toFloat()
     }
 
+    //Muutetaan annettu arvo prosentiksi
     val percentage =
         (animatedIndicatorValue / maxIndicatorValue) * 100
 
+    //Määritellään kuvaajan kaarteen "Kulma"
     val sweepAngle by animateFloatAsState(
         targetValue = (2.4 * percentage).toFloat(),
         animationSpec = tween(1000)

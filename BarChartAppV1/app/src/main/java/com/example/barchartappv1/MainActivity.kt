@@ -70,18 +70,12 @@ fun DrawBarChart() {
         //Asetetaan montako "askelta" haluamme taulukolle. Maksimiarvon ollessa 700000, asettamalla arvo 7 saamme akselille viivat 100 tuhannen välein
         val yStepSize = 7
 
-        //Luodaan lista johon lisätään haluamamme data
+        //Luodaan lista datalle
         val list = arrayListOf(
             BarData(
-                //Asetetaan paikka x akselilla (monesko pylväs)
-                //Asetetaan palkin y arvo (palkin korkeus)
-                point = Point(1F, 681802F),
-
-                //Lisätään palkille väri
-                color = color1,
-
-                //Asetetaan otsikko tiedolle
-                label = "Helsinki",
+                point = Point(1F, 681802F),     //Asetetaan pylvään paikka x akselilla (monesko pylväs) sekä palkin arvo y akselilla
+                color = color1,                 //Lisätään palkille väri
+                label = "Helsinki",             //Asetetaan otsikko tiedolle
             ),
 
             BarData(
