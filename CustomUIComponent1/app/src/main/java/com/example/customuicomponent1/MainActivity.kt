@@ -125,17 +125,13 @@ fun CustomUIComponent1(
 
     //Tarkistetaan onko syötetty arvo sallituissa rajoissa
     //Jos syötetty arvo on yli sallitun, asetetaan arvoksi annettu maksimiarvo
-    allowedIndicatorValue = if (indicatorValue <= maxIndicatorValue) {
-        indicatorValue
-    } else {
-        maxIndicatorValue
-    }
-
     //Jos syötetty arvo on alle sallitun, asetetaan arvoksi minimiarvo
-    allowedIndicatorValue = (if (indicatorValue > minIndicatorValue) {
-        indicatorValue
-    } else {
+    allowedIndicatorValue = (if (indicatorValue >= maxIndicatorValue) {
+        maxIndicatorValue
+    } else if (indicatorValue <= minIndicatorValue) {
         minIndicatorValue
+    } else {
+        indicatorValue
     })
 
     var animatedIndicatorValue by remember { mutableStateOf(0f) }
