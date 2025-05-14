@@ -6,16 +6,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 
-//YCharts Imports
+//YCharts importit
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
@@ -36,19 +39,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LineChartAppV1Theme {
-
-                //Luodaan laatikko komponentti
                 Box(
                     modifier = Modifier
-
-                        //Asetetaan laatikon kooksi koko näyttö
                         .fillMaxSize()
-
-                        //Asetetaan laatikon reunoille 20dp tyhjä reuna
                         .padding(20.dp)
                 ) {
-                    //Kutsutaan funktiota, jossa muodostamme diagrammin
-                    DrawLineChart()
+                    Column() {
+                        Text(
+                            modifier = Modifier
+                                .padding(10.dp, 20.dp, 10.dp, 0.dp),
+                            textAlign = TextAlign.Center,
+                            text = "Nokian osake Tammikuu 2024 - Joulukuu 2024",
+                            fontSize = 15.sp
+                        )
+                        DrawLineChart()     //Kutsutaan funktiota, jossa muodostamme diagrammin
+                    }
                 }
             }
         }
@@ -61,18 +66,21 @@ class MainActivity : ComponentActivity() {
 fun DrawLineChart() {
 
     //Luodaan pointsData lista, johon lisätään halutut arvot
+    //Esimerkissä käytetään datana Nokian osakkeen arvoa Tammikuu 2024 - Joulukuu 2024 välillä.
     val pointsData: List<Point> =
         listOf(
-            Point(1f, 25f),
-            Point(2f, 73f),
-            Point(3f, 68f),
-            Point(4f, 100f),
-            Point(5f, 17f),
-            Point(6f, 44f),
-            Point(7f, 31f),
-            Point(8f, 2f),
-            Point(9f, 49f),
-            Point(10f, 15f)
+            Point(1f, 3.332f),
+            Point(2f, 3.260f),
+            Point(3f, 3.291f),
+            Point(4f, 3.412f),
+            Point(5f, 3.591f),
+            Point(6f, 3.558f),
+            Point(7f, 3.621f),
+            Point(8f, 3.978f),
+            Point(9f, 3.924f),
+            Point(10f, 4.325f),
+            Point(11f, 3.980f),
+            Point(12f, 4.274f)
         )
 
     //Asetetaan montako "askelta" haluamme taulukolle y akselille
@@ -90,10 +98,10 @@ fun DrawLineChart() {
     //Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
     val yAxisData = AxisData.Builder()
         .steps(steps)
-        .labelAndAxisLinePadding(20.dp)
+        .labelAndAxisLinePadding(30.dp)
         .labelData { i ->
-            val yMax = 100.0f
-            val yMin = 0.0f
+            val yMin = pointsData.minOf{it.y}       //Asetetaan taulukon minimiarvoksi listan pienin arvo
+            val yMax = pointsData.maxOf{it.y}       //Asetetaan taulukon maksimiarvoksi listan suurin arvo
             val yScale = (yMax - yMin) / steps
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
@@ -125,13 +133,4 @@ fun DrawLineChart() {
             .height(300.dp),
         lineChartData = data
     )
-}
-
-// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
-@Preview(showBackground = true)
-@Composable
-fun LineChartPreview() {
-    LineChartAppV1Theme {
-        DrawLineChart()
-    }
 }
