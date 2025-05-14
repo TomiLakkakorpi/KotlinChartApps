@@ -7,13 +7,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 //Color Imports
 import com.example.barchartappv1.ui.theme.color1
@@ -37,18 +41,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BarChartAppV1Theme {
-
-                //Luodaan laatikko komponentti
                 Box(
                     modifier = Modifier
-                        //Asetetaan laatikon kooksi koko näyttö
                         .fillMaxSize()
-
-                        //Asetetaan laatikon reunoille 20dp tyhjä reuna
                         .padding(20.dp)
                 ) {
-                    //Kutsutaan funktiota, jossa muodostamme diagrammin
-                    DrawBarChart()
+                    Column() {
+                        Text(
+                            modifier = Modifier.padding(10.dp, 20.dp, 10.dp, 0.dp),
+                            textAlign = TextAlign.Center,
+                            text = "OAMK hakijamäärät kevät 2023 - syksy 2025",
+                            fontSize = 15.sp
+                        )
+
+                        //Kutsutaan funktiota, jossa muodostamme diagrammin
+                        DrawBarChart()
+                    }
                 }
             }
         }
@@ -62,60 +70,36 @@ fun DrawBarChart() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            //.padding(20.dp)
     ) {
-        //Asetetaan maksimiarvopalkeille, tässä voi myös tarkistaa taulukon suurimman arvon ja valita sen tähän
-        val maxRange = 700000F
-
-        //Asetetaan montako "askelta" haluamme taulukolle. Maksimiarvon ollessa 700000, asettamalla arvo 7 saamme akselille viivat 100 tuhannen välein
-        val yStepSize = 7
-
         //Luodaan lista datalle
+        //Esimerkkidatana OAMK hakijamäärä Kevät 2023 - Syksy 2025 (Data opetushallinnon tilastopalvelusta)
         val list = arrayListOf(
-            BarData(
-                point = Point(1F, 681802F),     //Asetetaan pylvään paikka x akselilla (monesko pylväs) sekä palkin arvo y akselilla
-                color = color1,                 //Lisätään palkille väri
-                label = "Helsinki",             //Asetetaan otsikko tiedolle
-            ),
-
-            BarData(
-                point = Point(2F, 318507F),
-                color = color2,
-                label = "Espoo",
-            ),
-
-            BarData(
-                point = Point(3F, 258770F),
-                color = color3,
-                label = "Tampere",
-            ),
-
-            BarData(
-                point = Point(4F, 250073F),
-                color = color4,
-                label = "Vantaa",
-            ),
-
-            BarData(
-                point = Point(5F, 215530F),
-                color = color5,
-                label = "Oulu",
-            ),
-
-            BarData(
-                point = Point(6F, 204618F),
-                color = color6,
-                label = "Turku",
-            ),
+            BarData(point = Point(1F, 3135F), color = color1, label = "K 2023"),
+            BarData(point = Point(2F, 11388F), color = color2, label = "S 2023"),
+            BarData(point = Point(3F, 5307F), color = color3, label = "K 2024"),
+            BarData(point = Point(4F, 12528F), color = color4, label = "S 2024"),
+            BarData(point = Point(5F, 3198F), color = color5, label = "K 2025"),
+            BarData(point = Point(6F, 10956F), color = color6, label = "S 2025"),
         )
+
+        // Asetetaan Y-akselin maksimiarvo
+        val maxRange = 13000
+
+        // Maksimiarvon voi myös asettaa listan suurimman arvon mukaan
+        //val maxRange = list.maxOf{it.point.y}
+
+        // Määritetään montako "askelta" haluamme y-akselille.
+        val yStepSize = 13
 
         // Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
         val xAxisData = AxisData.Builder()
             .axisStepSize(30.dp)
             .steps(list.size - 1)
-            .bottomPadding(40.dp)
-            .axisLabelAngle(20f)
-            .startDrawPadding(25.dp)
+            .bottomPadding(60.dp)
+            .axisLabelAngle(45f)
+            .labelAndAxisLinePadding(10.dp)
+            .startDrawPadding(20.dp)
             .labelData { index -> list[index].label }
             .build()
 
