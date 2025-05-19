@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DrawDonutChart() {
     // Luodaan pieChartData arvo, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä piirakalle haluttu väri.
-    val donutChartData = PieChartData(
+    val dataList = PieChartData(
         slices = listOf(
             //Lisätään siivut, joihin lisätään otsikko, arvo ja väri
             PieChartData.Slice("Helsinki", 684018f, color = color1),
@@ -120,7 +120,7 @@ fun DrawDonutChart() {
         Spacer(modifier = Modifier.height(20.dp))
 
         //Muodostetaan selitteiden luettelo ruudukkomuotoon
-        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(pieChartData = donutChartData, 3))
+        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(pieChartData = dataList, 3))
 
         //Kutsutaan funktiota joka piirtää diagrammin
         //Annetaan funktiolle luomamme data ja konfiguroinnit
@@ -128,17 +128,8 @@ fun DrawDonutChart() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(400.dp),
-            donutChartData,
+            dataList,
             donutChartConfig
         ) {}
-    }
-}
-
-// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
-@Preview(showBackground = true)
-@Composable
-fun DonutChartPreview() {
-    PieChartAppV4Theme {
-        DrawDonutChart()
     }
 }
