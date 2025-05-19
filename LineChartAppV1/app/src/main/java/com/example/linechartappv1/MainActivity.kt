@@ -67,42 +67,41 @@ fun DrawLineChart() {
 
     //Luodaan pointsData lista, johon lisätään halutut arvot
     //Esimerkissä käytetään datana Nokian osakkeen arvoa Tammikuu 2024 - Joulukuu 2024 välillä.
-
-    val pointsData = arrayListOf(
-            Point(1f, 3.332f),
-            Point(2f, 3.260f),
-            Point(3f, 3.291f),
-            Point(4f, 3.412f),
-            Point(5f, 3.591f),
-            Point(6f, 3.558f),
-            Point(7f, 3.621f),
-            Point(8f, 3.978f),
-            Point(9f, 3.924f),
-            Point(10f, 4.325f),
-            Point(11f, 3.980f),
-            Point(12f, 4.274f)
-        )
+    val dataList = arrayListOf(
+        Point(1f, 3.332f),
+        Point(2f, 3.260f),
+        Point(3f, 3.291f),
+        Point(4f, 3.412f),
+        Point(5f, 3.591f),
+        Point(6f, 3.558f),
+        Point(7f, 3.621f),
+        Point(8f, 3.978f),
+        Point(9f, 3.924f),
+        Point(10f, 4.325f),
+        Point(11f, 3.980f),
+        Point(12f, 4.274f)
+    )
 
     //Asetetaan montako "askelta" haluamme taulukolle y akselille
-    val steps = 10
+    val yAxisSteps = 10
 
     //Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
     val xAxisData = AxisData.Builder()
         .axisStepSize(35.dp)
         .topPadding(105.dp)
-        .steps(pointsData.size - 1)
-        .labelData { i -> pointsData[i].x.toInt().toString() }
+        .steps(dataList.size - 1)
+        .labelData { i -> dataList[i].x.toInt().toString() }
         .labelAndAxisLinePadding(15.dp)
         .build()
 
     //Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
     val yAxisData = AxisData.Builder()
-        .steps(steps)
+        .steps(yAxisSteps)
         .labelAndAxisLinePadding(30.dp)
         .labelData { i ->
-            val yMin = pointsData.minOf{it.y}       //Asetetaan taulukon minimiarvoksi listan pienin arvo
-            val yMax = pointsData.maxOf{it.y}       //Asetetaan taulukon maksimiarvoksi listan suurin arvo
-            val yScale = (yMax - yMin) / steps
+            val yMin = dataList.minOf{it.y}       //Asetetaan taulukon minimiarvoksi listan pienin arvo
+            val yMax = dataList.maxOf{it.y}       //Asetetaan taulukon maksimiarvoksi listan suurin arvo
+            val yScale = (yMax - yMin) / yAxisSteps
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
 
@@ -111,7 +110,7 @@ fun DrawLineChart() {
         linePlotData = LinePlotData(
             lines = listOf(
                 Line(
-                    dataPoints = pointsData,
+                    dataPoints = dataList,
                     LineStyle(),
                     IntersectionPoint(),
                     SelectionHighlightPoint(),
