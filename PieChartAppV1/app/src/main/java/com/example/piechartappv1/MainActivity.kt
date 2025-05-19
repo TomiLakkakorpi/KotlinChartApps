@@ -71,7 +71,6 @@ class MainActivity : ComponentActivity() {
                         DrawPieChart()
                     }
                 }
-
             }
         }
     }
@@ -82,8 +81,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DrawPieChart() {
     // Luodaan pieChartData arvo, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä piirakalle haluttu väri.
-    val pieChartData = PieChartData(
-        slices = listOf(
+    val dataList = PieChartData(
+        slices = arrayListOf(
             //Lisätään diagrammiin siivut, lisätään siivuihin otsikko, arvo ja väri
             PieChartData.Slice("Helsinki", 684018f, color = color1),
             PieChartData.Slice("Espoo", 320931f, color = color2),
@@ -121,24 +120,15 @@ fun DrawPieChart() {
         Spacer(modifier = Modifier.height(20.dp))
 
         //Muodostetaan selitteiden luettelo ruudukkomuotoon
-        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(pieChartData, 3))
+        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(dataList, 3))
 
         //Kutsutaan funktiota, joka piirtää diagrammin
         PieChart(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(400.dp),
-            pieChartData,
+            dataList,
             pieChartConfig
         ) {}
-    }
-}
-
-// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
-@Preview(showBackground = true)
-@Composable
-fun PieChartPreview() {
-    PieChartAppV1Theme {
-        DrawPieChart()
     }
 }
