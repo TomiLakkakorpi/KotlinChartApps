@@ -67,8 +67,8 @@ fun DrawLineChart() {
 
     //Luodaan pointsData lista, johon lisätään halutut arvot
     //Esimerkissä käytetään datana Nokian osakkeen arvoa Tammikuu 2024 - Joulukuu 2024 välillä.
-    val pointsData: List<Point> =
-        arrayListOf(
+
+    val pointsData = arrayListOf(
             Point(1f, 3.332f),
             Point(2f, 3.260f),
             Point(3f, 3.291f),

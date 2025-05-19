@@ -74,7 +74,7 @@ fun DrawBarChart() {
     ) {
         //Luodaan lista datalle
         //Esimerkkidatana OAMK hakijamäärä Kevät 2023 - Syksy 2025 (Data opetushallinnon tilastopalvelusta)
-        val list = arrayListOf(
+        val dataList = arrayListOf(
             BarData(point = Point(1F, 3135F), color = color1, label = "K 2023"),
             BarData(point = Point(2F, 11388F), color = color2, label = "S 2023"),
             BarData(point = Point(3F, 5307F), color = color3, label = "K 2024"),
@@ -93,14 +93,15 @@ fun DrawBarChart() {
         val yStepSize = 13
 
         // Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
+
         val xAxisData = AxisData.Builder()
             .axisStepSize(30.dp)
-            .steps(list.size - 1)
+            .steps(dataList.size - 1)
             .bottomPadding(60.dp)
             .axisLabelAngle(45f)
             .labelAndAxisLinePadding(10.dp)
             .startDrawPadding(20.dp)
-            .labelData { index -> list[index].label }
+            .labelData { index -> dataList[index].label }
             .build()
 
         // Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
@@ -112,8 +113,9 @@ fun DrawBarChart() {
             .build()
 
         // Luodaan arvo, johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
+
         val barChartData = BarChartData(
-            chartData = list,
+            chartData = dataList,
             xAxisData = xAxisData,
             yAxisData = yAxisData,
             barStyle = BarStyle(
