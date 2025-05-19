@@ -134,13 +134,3 @@ fun DrawBarChart() {
         )
     }
 }
-
-// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
-@Preview(showBackground = true)
-@Composable
-fun BarChartPreview() {
-    BarChartAppV1Theme {
-        //Kutsutaan funktiota, joka sisältää kaiken koodin diagrammin piirtämiseen, jotta sitä voidaan tarkastella preview ikkunassa
-        DrawBarChart()
-    }
-}
