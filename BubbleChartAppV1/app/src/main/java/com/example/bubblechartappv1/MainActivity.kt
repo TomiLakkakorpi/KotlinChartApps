@@ -110,8 +110,7 @@ class MainActivity : ComponentActivity() {
 fun DrawBubbleChart() {
     //Luodaan "pointsData" arvo, johon asetetaan lista esimerkkidataa.
     //Oikeassa käyttötapauksessa tämä data haettaisiin esimerkiksi tietokannasta.
-    val pointsData: List<Bubble> =
-        listOf(
+    val dataList = arrayListOf(
             Bubble( //Lukko
                 center = Point(32F, 112F),
                 density = 29.50F,
@@ -244,19 +243,19 @@ fun DrawBubbleChart() {
         )
 
     // Luodaan "steps" arvo, jolla määritellään Y akselin askeleiden määrä
-    val ySteps = 12
-    val xSteps = 10
+    val yAxisSteps = 12
+    val xAxisSteps = 10
 
     // Luodaan xAxisData arvo, jossa konfiguroidaan x akselille ominaisuuksia.
     val xAxisData = AxisData.Builder()
         .axisStepSize(9.dp)
-        .steps(xSteps)
+        .steps(xAxisSteps)
         .labelData {
             //i -> pointsData[i].center.x.toInt().toString()
             i ->
             val xMin = -4f
             val xMax = 36f
-            val xScale = (xMax - xMin) / xSteps
+            val xScale = (xMax - xMin) / xAxisSteps
             ((i+xScale) + xMin).formatToSinglePrecision()
 
         }
@@ -266,19 +265,19 @@ fun DrawBubbleChart() {
 
     // Luodaan yAxisData arvo, jossa konfiguroidaan y akselille ominaisuuksia.
     val yAxisData = AxisData.Builder()
-        .steps(ySteps)
+        .steps(yAxisSteps)
         .labelAndAxisLinePadding(20.dp)
         .labelData { i ->
             val yMin = 0f
             val yMax = 120f
             //val yMax = pointsData.maxOf {it.y}
-            val yScale = (yMax - yMin) / ySteps
+            val yScale = (yMax - yMin) / yAxisSteps
             ((i*yScale) + yMin).formatToSinglePrecision()
         }.build()
 
     // Luodaan data arvo, johon lisätään datalista(pointsData) sekä x ja y akseleiden konfiguraatiot
     val data = BubbleChartData(
-        bubbles = pointsData,
+        bubbles = dataList,
         isZoomAllowed = true,
         //DataUtils.getBubbleChartDataWithSolidStyle(pointsData),
         xAxisData = xAxisData,
@@ -311,15 +310,5 @@ fun drawInfoRow(color: Color, text: String){
             color = color,
             modifier = Modifier.padding(8.dp, 0.dp,0.dp, 0.dp)
         )
-    }
-}
-
-// @Preview merkittyjä funktiota voidaan tarkastella "preview" osiossa ennen ohjelman ajoa.
-@Preview(showBackground = true)
-@Composable
-fun BubbleChartPreview() {
-    BubbleChartAppV1Theme {
-        //Kutsutaan funktiota, joka sisältää kaiken koodin diagrammin piirtämiseen, jotta sitä voidaan tarkastella preview ikkunassa
-        DrawBubbleChart()
     }
 }
