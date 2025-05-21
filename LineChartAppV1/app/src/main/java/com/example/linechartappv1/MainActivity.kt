@@ -52,7 +52,8 @@ class MainActivity : ComponentActivity() {
                             text = "Nokian osake Tammikuu 2024 - Joulukuu 2024",
                             fontSize = 15.sp
                         )
-                        DrawLineChart()     //Kutsutaan funktiota, jossa muodostamme diagrammin
+                        //Kutsutaan funktiota, joka piirtää viivakaavion
+                        DrawLineChart()
                     }
                 }
             }
@@ -60,12 +61,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Luodaan funktio, joka rakentaa ja piirtää viivadiagrammin
-//Kotlinissa käyttöliittymäfunktiot merkitään @Composable merkinnällä
+//Luodaan funktio, jossa konfiguroidaan viivakaavio
 @Composable
 fun DrawLineChart() {
 
-    //Luodaan pointsData lista, johon lisätään halutut arvot
+    //Luodaan dynaaminen lista, johon lisätään halutut arvot
     //Esimerkissä käytetään datana Nokian osakkeen arvoa Tammikuu 2024 - Joulukuu 2024 välillä.
     val dataList = arrayListOf(
         Point(1f, 3.332f),
@@ -85,7 +85,7 @@ fun DrawLineChart() {
     //Asetetaan montako "askelta" haluamme taulukolle y akselille
     val yAxisSteps = 10
 
-    //Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
+    //Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri parametreja.
     val xAxisData = AxisData.Builder()
         .axisStepSize(35.dp)
         .topPadding(105.dp)
@@ -94,7 +94,7 @@ fun DrawLineChart() {
         .labelAndAxisLinePadding(15.dp)
         .build()
 
-    //Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
+    //Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri parametreja.
     val yAxisData = AxisData.Builder()
         .steps(yAxisSteps)
         .labelAndAxisLinePadding(30.dp)
@@ -105,7 +105,7 @@ fun DrawLineChart() {
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
 
-    // Luodaan arvo johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
+    //Luodaan arvo johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
     val data = LineChartData(
         linePlotData = LinePlotData(
             lines = listOf(
@@ -125,7 +125,7 @@ fun DrawLineChart() {
     )
 
     //Kutsutaan YCharts funktiota joka piirtää diagrammin
-    //Annetaan funktiolle lisäämämme data sekä x ja y akselien konfiguraatiot
+    //Annetaan funktiolle lisäämämme data sekä x- ja y-akselien konfiguraatiot
     LineChart(
         modifier = Modifier
             .fillMaxWidth()

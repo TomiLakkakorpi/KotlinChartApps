@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
 import androidx.compose.ui.text.style.TextAlign
@@ -49,13 +48,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PieChartAppV2Theme {
-                //Luodaan laatikko komponentti
                 Box(
                     modifier = Modifier
-                        //Asetetaan laatikon kooksi koko näyttö
                         .fillMaxSize()
-
-                        //Asetetaan laatikon reunoille 20dp tyhjä reuna
                         .padding(20.dp)
                 ) {
                     Column() {
@@ -66,7 +61,7 @@ class MainActivity : ComponentActivity() {
                             fontSize = 20.sp
                         )
 
-                        //Kutsutaan funktiota, jossa muodostamme diagrammin
+                        //Kutsutaan funktiota, joka piirtää piirakkakaavion
                         DrawPieChart()
                     }
                 }
@@ -75,14 +70,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Luodaan funktio, joka rakentaa ja piirtää piirakkadiagrammin
-//Kotlinissa käyttöliittymäfunktiot merkitään @Composable merkinnällä
+//Luodaan funktio, jossa konfiguroidaan piirakkakaavio
 @Composable
 fun DrawPieChart() {
-    // Luodaan pieChartData arvo, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä piirakalle haluttu väri.
+    // Luodaan dynaaminen lista, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä siivuille haluttu väri.
     val dataList = PieChartData(
         slices = listOf(
-            //Data tilastokeskukselta 31.12.2024
+            //Lisätään kaavioon siivut, lisätään siivuille otsikko, arvo ja väri
             PieChartData.Slice("Helsinki", 684018f, color = color1),
             PieChartData.Slice("Espoo", 320931f, color = color2),
             PieChartData.Slice("Tampere", 260180f, color = color3),
@@ -94,11 +88,11 @@ fun DrawPieChart() {
             PieChartData.Slice("Lahti", 121337f, color = color9),
             PieChartData.Slice("Pori", 83305f, color = color10)
         ),
-        //Määritellään minkälaisen kuvaajan haluamme
+        //Määritellään minkälaisen kaavion haluamme
         plotType = PlotType.Pie
     )
 
-    // Luodaan konfigurointi arvo, jossa määritellään piirakalle eri ominaisuuksia
+    //Luodaan konfigurointi arvo, jossa määritellään kaaviolle eri parametreja
     val pieChartConfig =
         PieChartConfig(
             labelVisible = true,
@@ -114,16 +108,16 @@ fun DrawPieChart() {
             animationDuration = 2000,
         )
 
-    // Luodaan sarake, jonka korkeudeksi määritetään 500dp
+    //Lisätään sarake, jonka korkeudeksi määritetään 500dp
     Column(modifier = Modifier.height(500.dp)) {
 
-        //Luodaan sarakkeiden väliin 20dp rako
+        //Lisätään sarakkeiden väliin 20dp rako
         Spacer(modifier = Modifier.height(20.dp))
 
         //Muodostetaan selitteiden luettelo ruudukkomuotoon
         Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(dataList, 3))
 
-        //Kutsutaan funktiota, joka piirtää diagrammin
+        //Kutsutaan funktiota, joka piirtää piirakkakaavion
         PieChart(
             modifier = Modifier
                 .fillMaxWidth()

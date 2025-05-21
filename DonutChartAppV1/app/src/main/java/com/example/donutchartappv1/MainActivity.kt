@@ -1,8 +1,7 @@
-package com.example.piechartappv1
+package com.example.donutchartappv1
 
-import com.example.piechartappv1.ui.theme.PieChartAppV1Theme
+import android.graphics.Typeface
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -13,33 +12,33 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.material3.Text
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.donutchartappv1.ui.theme.DonutChartAppV1Theme
 
 //Color Imports
-import com.example.piechartappv1.ui.theme.color1
-import com.example.piechartappv1.ui.theme.color2
-import com.example.piechartappv1.ui.theme.color3
-import com.example.piechartappv1.ui.theme.color4
-import com.example.piechartappv1.ui.theme.color5
-import com.example.piechartappv1.ui.theme.color6
-import com.example.piechartappv1.ui.theme.color7
-import com.example.piechartappv1.ui.theme.color8
-import com.example.piechartappv1.ui.theme.color9
-import com.example.piechartappv1.ui.theme.color10
-import com.example.piechartappv1.ui.theme.color11
+import com.example.donutchartappv1.ui.theme.color1
+import com.example.donutchartappv1.ui.theme.color2
+import com.example.donutchartappv1.ui.theme.color3
+import com.example.donutchartappv1.ui.theme.color4
+import com.example.donutchartappv1.ui.theme.color5
+import com.example.donutchartappv1.ui.theme.color6
+import com.example.donutchartappv1.ui.theme.color7
+import com.example.donutchartappv1.ui.theme.color8
+import com.example.donutchartappv1.ui.theme.color9
+import com.example.donutchartappv1.ui.theme.color10
+import com.example.donutchartappv1.ui.theme.color11
 
 //YCharts Imports
 import co.yml.charts.common.components.Legends
 import co.yml.charts.common.model.PlotType
 import co.yml.charts.common.utils.DataUtils
-import co.yml.charts.ui.piechart.charts.PieChart
+import co.yml.charts.ui.piechart.charts.DonutPieChart
 import co.yml.charts.ui.piechart.models.PieChartConfig
 import co.yml.charts.ui.piechart.models.PieChartData
 
@@ -48,7 +47,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PieChartAppV1Theme {
+            DonutChartAppV1Theme {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -62,8 +61,8 @@ class MainActivity : ComponentActivity() {
                             fontSize = 20.sp
                         )
 
-                        //Kutsutaan funktiota, joka piirtää piirakkakaavion
-                        DrawPieChart()
+                        //Kutsutaan funktiota, joka piirtää donitsikaavion
+                        DrawDonutChart()
                     }
                 }
             }
@@ -71,12 +70,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Luodaan funktio, jossa konfiguroidaan piirakkakaavio
+//Luodaan funktio, joka rakentaa ja piirtää donitsikaavion
 @Composable
-fun DrawPieChart() {
+fun DrawDonutChart() {
     //Luodaan dynaaminen lista, johon asetetaan arvoksi lista suomen kaupunkeja, niiden väkiluvut sekä siivulle haluttu väri.
     val dataList = PieChartData(
-        slices = arrayListOf(
+        slices = listOf(
             //Lisätään kaavioon siivut, lisätään siivuille otsikko, arvo ja väri
             PieChartData.Slice("Helsinki", 684018f, color = color1),
             PieChartData.Slice("Espoo", 320931f, color = color2),
@@ -87,41 +86,45 @@ fun DrawPieChart() {
             PieChartData.Slice("Jyväskylä", 149194f, color = color7),
             PieChartData.Slice("Kuopio", 125666f, color = color8),
             PieChartData.Slice("Lahti", 121337f, color = color9),
-            PieChartData.Slice("Pori", 83305f, color = color10)
+            PieChartData.Slice("Pori", 83305f, color = color10),
+
+            //Lisätään donitsikaavioon uusi siivu, johon lisätään muun suomen väkiluku
+            PieChartData.Slice("Muu Suomi", 3129089f, color = color11)
         ),
         //Määritellään minkälaisen kaavion haluamme
-        plotType = PlotType.Pie
+        plotType = PlotType.Donut
     )
 
-    //Luodaan konfigurointi arvo, jossa määritellään kaaviolle eri parametreja
-    val pieChartConfig = PieChartConfig(
-            labelVisible = true,
-            activeSliceAlpha = .9f,
-            isEllipsizeEnabled = true,
-            sliceLabelEllipsizeAt = TextUtils.TruncateAt.MIDDLE,
-            isAnimationEnable = true,
-            chartPadding = 30,
-            backgroundColor = Color.White,
-            showSliceLabels = false,
-            animationDuration = 2000,
-        )
+    // Luodaan konfigurointi arvo, jossa määritellään kaaviolle eri parametreja
+    val donutChartConfig = PieChartConfig(
+        labelVisible = true,
+        strokeWidth = 120f,
+        labelColor = Color.Black,
+        activeSliceAlpha = .9f,
+        isEllipsizeEnabled = true,
+        labelTypeface = Typeface.defaultFromStyle(Typeface.BOLD),
+        isAnimationEnable = true,
+        chartPadding = 25,
+        labelFontSize = 42.sp,
+    )
 
-    //Lisätään sarake, jonka korkeudeksi määritetään 500dp
+    // Luodaan sarake, jonka korkeudeksi määritetään 500dp
     Column(modifier = Modifier.height(500.dp)) {
 
-        //Lisätään sarakkeiden väliin 20dp rako
+        //Luodaan sarakkeiden väliin 20dp rako
         Spacer(modifier = Modifier.height(20.dp))
 
         //Muodostetaan selitteiden luettelo ruudukkomuotoon
-        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(dataList, 3))
+        Legends(legendsConfig = DataUtils.getLegendsConfigFromPieChartData(pieChartData = dataList, 3))
 
-        //Kutsutaan funktiota, joka piirtää piirakkakaavion
-        PieChart(
+        //Kutsutaan funktiota joka piirtää kaavion
+        //Annetaan funktiolle luomamme data ja konfiguroinnit
+        DonutPieChart(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(400.dp),
             dataList,
-            pieChartConfig
+            donutChartConfig
         ) {}
     }
 }

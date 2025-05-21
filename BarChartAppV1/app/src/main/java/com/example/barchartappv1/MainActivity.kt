@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             fontSize = 15.sp
                         )
 
-                        //Kutsutaan funktiota, jossa muodostamme diagrammin
+                        //Kutsutaan funktiota, joka piirtää pylväskaavion
                         DrawBarChart()
                     }
                 }
@@ -63,16 +63,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Luodaan funktio, joka rakentaa ja piirtää pylväsdiagrammin
-//Kotlinissa käyttöliittymäfunktiot merkitään @Composable merkinnällä
+//Luodaan funktio, jossa konfiguroidaan pylväskaavio
 @Composable
 fun DrawBarChart() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            //.padding(20.dp)
     ) {
-        //Luodaan lista datalle
+        //Luodaan dynaaminen lista datalle
         //Esimerkkidatana OAMK hakijamäärä Kevät 2023 - Syksy 2025 (Data opetushallinnon tilastopalvelusta)
         val dataList = arrayListOf(
             BarData(point = Point(1F, 3135F), color = color1, label = "K 2023"),
@@ -83,17 +81,16 @@ fun DrawBarChart() {
             BarData(point = Point(6F, 10956F), color = color6, label = "S 2025"),
         )
 
-        // Asetetaan Y-akselin maksimiarvo
+        //Asetetaan Y-akselin maksimiarvo
         val maxRange = 13000
 
-        // Maksimiarvon voi myös asettaa listan suurimman arvon mukaan
+        //Maksimiarvon voi myös asettaa listan suurimman arvon mukaan
         //val maxRange = list.maxOf{it.point.y}
 
-        // Määritetään montako "askelta" haluamme y-akselille.
+        //Määritetään montako "askelta" haluamme y-akselille.
         val yStepSize = 13
 
-        // Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri ominaisuuksia.
-
+        // Luodaan xAxisData arvo jossa konfiguroidaan x akselin parametreja.
         val xAxisData = AxisData.Builder()
             .axisStepSize(30.dp)
             .steps(dataList.size - 1)
@@ -104,7 +101,7 @@ fun DrawBarChart() {
             .labelData { index -> dataList[index].label }
             .build()
 
-        // Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri ominaisuuksia.
+        //Luodaan yAxisData arvo jossa konfiguroidaan y akselin parametreja.
         val yAxisData = AxisData.Builder()
             .steps(yStepSize)
             .labelAndAxisLinePadding(20.dp)
@@ -112,8 +109,7 @@ fun DrawBarChart() {
             .labelData { index -> (index * (maxRange / yStepSize)).toString() }
             .build()
 
-        // Luodaan arvo, johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
-
+        //Luodaan arvo, johon lisätään datalistamme sekä x- ja y-akselien konfiguraatiot
         val barChartData = BarChartData(
             chartData = dataList,
             xAxisData = xAxisData,
@@ -127,8 +123,8 @@ fun DrawBarChart() {
             horizontalExtraSpace = 50.dp
         )
 
-        //Kutsutaan YCharts funktiota joka piirtää diagrammin
-        //Annetaan funktiolle lisäämämme data sekä x ja y akselien konfiguraatiot
+        //Kutsutaan YCharts funktiota joka piirtää pylväskaavion
+        //Annetaan funktiolle lisäämämme data sekä x- ja y-akselien konfiguraatiot
         BarChart(
             modifier = Modifier
                 .height(350.dp),
