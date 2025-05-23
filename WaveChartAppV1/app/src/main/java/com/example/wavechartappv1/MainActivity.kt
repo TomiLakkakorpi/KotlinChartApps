@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,7 +38,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WaveChartAppV1Theme {
-                DrawWaveChart()
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    DrawWaveChart()
+                }
             }
         }
     }
@@ -46,18 +52,18 @@ class MainActivity : ComponentActivity() {
 fun DrawWaveChart() {
 
     val dataList = arrayListOf(
-        Point(1f, 10.0f),
-        Point(2f, 6.9f),
-        Point(3f, 9.2f),
-        Point(4f, 7.7f),
-        Point(5f, 6.1f),
-        Point(6f, 1.5f),
-        Point(7f, 3.8f),
-        Point(8f, 8.4f),
-        Point(9f, 6.3f),
-        Point(10f, 3.8f),
-        Point(11f, 1.2f),
-        Point(12f, 5.6f)
+        Point(1f, 0f),
+        Point(2f, 10f),
+        Point(3f, -10f),
+        Point(4f, 10f),
+        Point(5f, -10f),
+        Point(6f, 10f),
+        Point(7f, -10f),
+        Point(8f, 10f),
+        Point(9f, -10f),
+        Point(10f, 10f),
+        Point(11f, -10f),
+        Point(12f, 0f)
     )
 
     val yAxisSteps = 10
@@ -74,7 +80,6 @@ fun DrawWaveChart() {
         .steps(yAxisSteps)
         .labelAndAxisLinePadding(20.dp)
         .labelData { i ->
-            // Add yMin to get the negative axis values to the scale
             val yMin = dataList.minOf { it.y }
             val yMax = dataList.maxOf { it.y }
             val yScale = (yMax - yMin) / yAxisSteps
