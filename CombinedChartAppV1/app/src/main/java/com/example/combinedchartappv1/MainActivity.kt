@@ -62,12 +62,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DrawCombinedChart() {
+
     val maxRange = 20
     val yStepSize = 10
 
     // Data 10pv sääennuste Oulu Pe 23.5. - Su 1.6.
-    val lineData: List<Point> =
-        listOf(
+    val lineData = arrayListOf(
             Point(1f, 1.9f),
             Point(2f, 1.7f),
             Point(3f, 0.8f),
@@ -81,52 +81,52 @@ fun DrawCombinedChart() {
         )
 
     val groupBarData = arrayListOf(
-        GroupBar(label = "1", barList = arrayListOf(
+        GroupBar(label = "23.5.", barList = arrayListOf(
             BarData(point = Point(1F, 11f)),
             BarData(point = Point(2F, 18f))
         )),
 
-        GroupBar(label = "2", barList = arrayListOf(
+        GroupBar(label = "24.5.", barList = arrayListOf(
             BarData(point = Point(1F, 5f)),
             BarData(point = Point(2F, 16f))
         )),
 
-        GroupBar(label = "3", barList = arrayListOf(
+        GroupBar(label = "25.5.", barList = arrayListOf(
             BarData(point = Point(1F, 8f)),
             BarData(point = Point(2F, 11f))
         )),
 
-        GroupBar(label = "4", barList = arrayListOf(
+        GroupBar(label = "26.5.", barList = arrayListOf(
             BarData(point = Point(1F, 7f)),
             BarData(point = Point(2F, 15f))
         )),
 
-        GroupBar(label = "5", barList = arrayListOf(
+        GroupBar(label = "27.5.", barList = arrayListOf(
             BarData(point = Point(1F, 9f)),
             BarData(point = Point(2F, 15f))
         )),
 
-        GroupBar(label = "6", barList = arrayListOf(
+        GroupBar(label = "28.5.", barList = arrayListOf(
             BarData(point = Point(1F, 9f)),
             BarData(point = Point(2F, 14f))
         )),
 
-        GroupBar(label = "7", barList = arrayListOf(
+        GroupBar(label = "29.5.", barList = arrayListOf(
             BarData(point = Point(1F, 9f)),
             BarData(point = Point(2F, 16f))
         )),
 
-        GroupBar(label = "8", barList = arrayListOf(
+        GroupBar(label = "30.5.", barList = arrayListOf(
             BarData(point = Point(1F, 10f)),
             BarData(point = Point(2F, 16f))
         )),
 
-        GroupBar(label = "9", barList = arrayListOf(
+        GroupBar(label = "31.5.", barList = arrayListOf(
             BarData(point = Point(1F, 8f)),
             BarData(point = Point(2F, 14f))
         )),
 
-        GroupBar(label = "10", barList = arrayListOf(
+        GroupBar(label = "1.6.", barList = arrayListOf(
             BarData(point = Point(1F, 8f)),
             BarData(point = Point(2F, 14f))
         )),
@@ -156,7 +156,6 @@ fun DrawCombinedChart() {
         )
     )
 
-    val colorPaletteList = listOf(color1, color2,)
     val legendsConfig = LegendsConfig(
         legendLabelList = arrayListOf(
             LegendLabel(
@@ -174,16 +173,21 @@ fun DrawCombinedChart() {
         ),
         gridColumnCount = 2
     )
+
+    val colorPaletteList = listOf(color1, color2,)
+
     val barPlotData = BarPlotData(
         groupBarList = groupBarData,
         barStyle = BarStyle(barWidth = 35.dp),
         barColorPaletteList = colorPaletteList
     )
+
     val combinedChartData = CombinedChartData(
         combinedPlotDataList = listOf(barPlotData, linePlotData),
         xAxisData = xAxisData,
         yAxisData = yAxisData
     )
+
     Column(
         Modifier
             .height(500.dp)

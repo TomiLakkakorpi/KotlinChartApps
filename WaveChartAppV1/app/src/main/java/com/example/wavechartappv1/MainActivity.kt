@@ -39,7 +39,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             WaveChartAppV1Theme {
                 Box(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(0.dp, 50.dp, 0.dp, 0.dp)
                 ) {
                     DrawWaveChart()
                 }
