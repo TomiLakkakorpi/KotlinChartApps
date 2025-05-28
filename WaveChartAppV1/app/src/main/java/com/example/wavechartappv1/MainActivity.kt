@@ -22,6 +22,7 @@ import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
 import co.yml.charts.ui.linechart.model.GridLines
 import co.yml.charts.ui.linechart.model.LineStyle
+import co.yml.charts.ui.linechart.model.LineType
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
@@ -53,23 +54,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DrawWaveChart() {
 
+    //Luodaan dynaaminen lista, johon lisätään halutut arvot
     val dataList = arrayListOf(
-        Point(1f, 0f),
+        Point(0f, -10f),
         Point(2f, 10f),
-        Point(3f, -10f),
-        Point(4f, 10f),
-        Point(5f, -10f),
+        Point(4f, -10f),
         Point(6f, 10f),
-        Point(7f, -10f),
-        Point(8f, 10f),
-        Point(9f, -10f),
+        Point(8f, -10f),
         Point(10f, 10f),
-        Point(11f, -10f),
-        Point(12f, 0f)
+        Point(12f, -10f),
+        Point(14f, 10f),
+        Point(16f, -10f),
+        Point(18f, 10f),
+        Point(20f, -10f),
+        Point(22f, 10f)
     )
 
+    //Määritellään montako "askelta" haluamme taulukolle y akselille
     val yAxisSteps = 10
 
+    //Luodaan xAxisData arvo jossa konfiguroidaan x akselille eri parametreja.
     val xAxisData = AxisData.Builder()
         .axisStepSize(30.dp)
         .startDrawPadding(48.dp)
@@ -78,6 +82,7 @@ fun DrawWaveChart() {
         .labelAndAxisLinePadding(15.dp)
         .build()
 
+    //Luodaan yAxisData arvo jossa konfiguroidaan y akselille eri parametreja.
     val yAxisData = AxisData.Builder()
         .steps(yAxisSteps)
         .labelAndAxisLinePadding(20.dp)
@@ -88,6 +93,7 @@ fun DrawWaveChart() {
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
 
+    //Luodaan arvo johon lisätään datalistamme sekä x ja y akselien konfiguraatiot
     val data = WaveChartData(
         wavePlotData = WavePlotData(
             lines = listOf(
@@ -106,6 +112,8 @@ fun DrawWaveChart() {
         gridLines = GridLines()
     )
 
+    //Kutsutaan YCharts funktiota joka piirtää diagrammin
+    //Syötetään funktiolle lisäämämme data sekä x- ja y-akselien konfiguraatiot
     WaveChart(
         modifier = Modifier
             .fillMaxWidth()

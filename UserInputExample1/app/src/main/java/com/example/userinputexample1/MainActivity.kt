@@ -49,8 +49,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             UserInputExample1Theme {
+
+                //Haetaan konteksti, jotta Toast ilmoituksia voidaan käyttää
                 val context = LocalContext.current
 
+                //Luodaan text -muuttuja, ja käytetään "by remember", jotta muuttujan arvo säilyy kun käyttöliittymä päivittyy
                 var text by remember {
                     mutableStateOf("")
                 }
@@ -107,6 +110,8 @@ class MainActivity : ComponentActivity() {
                                 .width(370.dp)
                                 .height(300.dp)
                         ) {
+                            //Tarkistetaan onko lista tyhjä
+                            //Jos lista ei ole tyhjä --> piirretään kaavio
                             if(lineChartList.isNotEmpty()){
                                 LineChart(
                                     modifier = Modifier
@@ -118,7 +123,10 @@ class MainActivity : ComponentActivity() {
                         }
 
                         TextField(
+                            //Asetetaan tekstikentän arvoksi muuttujan text arvo
                             value = text,
+
+                            //Kun tekstikentän arvo muuttuu, asetetaan tekstikentän teksti "text" muuttujaan.
                             onValueChange = { newText ->
                                 text = newText
                             },
@@ -129,11 +137,23 @@ class MainActivity : ComponentActivity() {
 
                         Button(
                             onClick = {
+                                //Tarkistetaan onko text arvo tyhjä
                                 if(text.isNotEmpty()){
-                                    lineChartList.add(Point(lineChartListIndex, text.toFloat(), ""))
-                                    text = ""
-                                    lineChartListIndex++
+                                    //Tarkistetaan onko text arvo hyväksyttävissä (sisältääkö se numeroita, jotta siitä saadaan float arvo)
+                                    if(checkIfValidValue(text)) {
+                                        //Jos text arvo sisältää joitain numeroita, lisätään käyttäjän syöttämät arvot datalistaan.
+                                        lineChartList.add(Point(lineChartListIndex, text.toFloat(), ""))
+
+                                        //Palautetaan text arvo tyhjäksi
+                                        text = ""
+
+                                        lineChartListIndex++
+                                    } else {
+                                        //Jos teksti ei ole hyväksyttävissä oleva arvo, ilmoitetaan siitä käyttäjälle
+                                        Toast.makeText(context, "Syöttämäsi arvoa ei voida hyväksyä! Syötä arvo muodossa 1.1", Toast.LENGTH_SHORT).show()
+                                    }
                                 } else {
+                                    //Jos tekstikenttä on tyhjä, ilmoitetaan siitä käyttäjälle.
                                     Toast.makeText(context, "Syötä arvo!", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -143,17 +163,21 @@ class MainActivity : ComponentActivity() {
 
                         Button(
                             onClick = {
+                                //Tarkistetaan onko datalista tyhjä.
                                 if (lineChartList.isNotEmpty()) {
-
+                                    //Jos datalista sisältää dataa, poistetaan datalistasta arvoja yksikerrallaan kunnes lista on tyhjä
                                     while(lineChartList.isNotEmpty()) {
                                         lineChartList.removeAt(lineChartList.size -1)
                                     }
 
+                                    //Palautetaan index muuttujan arvoksi 0.
                                     lineChartListIndex = 0f
 
+                                    //Muutetaan tekstikentän arvoa jotta käyttöliittymä saadaan päivittymään heti.
                                     text = " "
                                     text = ""
                                 } else {
+                                    //Jos datalista oli jo tyhjä, ilmoitetaan siitä käyttäjälle.
                                     Toast.makeText(context, "Taulukko on jo tyhjä!", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -165,4 +189,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+//Funktio jolla tarkistetaan onko syötetty teksti hyväksyttävä
+fun checkIfValidValue(input: String): Boolean {
+    val regex = Regex("[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)")
+    return input.matches(regex)
 }

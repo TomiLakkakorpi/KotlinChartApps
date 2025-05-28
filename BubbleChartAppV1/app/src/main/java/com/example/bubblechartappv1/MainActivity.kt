@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                     DrawBubbleChart()
                     Row() {
                         Column(
-                           modifier = Modifier.padding(10.dp),
+                            modifier = Modifier.padding(10.dp),
                         ) {
                             drawInfoRow(color1, "Lukko")
                             drawInfoRow(color2, "Ilves")
@@ -260,7 +260,7 @@ fun DrawBubbleChart() {
             val yMin = 0f
             val yMax = 120f
             val yScale = (yMax - yMin) / yAxisSteps
-            ((i*yScale) + yMin).formatToSinglePrecision()
+            ((i*yScale) + yMin).formatToSinglePrecision() + " P"
         }.build()
 
     //Luodaan data-arvo, johon lisätään datalista sekä x- ja y- akseleiden konfiguraatiot
