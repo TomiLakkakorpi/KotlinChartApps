@@ -62,11 +62,11 @@ var Calculator2lineChartList = mutableListOf<Point>()
 fun GraphingCalculatorScreen2(navController: NavController) {
 
     //Luodaan text -muuttuja
-    //Text arvoon lisätään käyttäjän syöttämä kaava tekstikentästä.
+    //Text muuttujaan lisätään käyttäjän syöttämä kaava tekstikentästä.
     var text by remember { mutableStateOf("") }
 
     //Luodaan formula -muuttuja
-    //Tähän arvoon lisätään kaava, kun käyttäjä painaa "piirrä kaavio".
+    //Tähän muuttujaan lisätään kaava, kun käyttäjä painaa "piirrä kaavio".
     //Tätä kaavaa käytetään kaavion pisteiden laskemiseen.
     var formula by remember {mutableStateOf("")}
 

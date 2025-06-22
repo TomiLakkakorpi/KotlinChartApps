@@ -64,29 +64,38 @@ var Calculator3lineChartList2 = mutableListOf<Point>()
 @Composable
 fun GraphingCalculatorScreen3(navController: NavController) {
 
+    //Luodaan text -muuttujat
+    //Text muuttujiin lisätään käyttäjän syöttämät kaavat tekstikentistä.
     var text1 by remember { mutableStateOf("") }
     var text2 by remember { mutableStateOf("") }
 
+    //Luodaan formula -muuttuja
+    //Tähän muuttujaan lisätään kaava, kun käyttäjä painaa "piirrä kaavio".
+    //Tätä kaavaa käytetään kaavion pisteiden laskemiseen.
+    var formula1 by remember {mutableStateOf("")}
+    var formula2 by remember {mutableStateOf("")}
+
+    //Alustetaan argumentit ja lauseke kaavion pisteiden laskemiseen.
+    var e1: Expression
+    var x1: Argument
+    var y1: Argument
+    var e2: Expression
+    var x2: Argument
+    var y2: Argument
+
+    //Luodaan myös muuttujat xStart, xEnd ja xIncrement
+    //Näitä muuttujia käyttäjä pystyy säätäämään, vakioarvoina ovat -5x, 5x ja 0.1x
     var xStart by remember { mutableFloatStateOf(-5.0f) }
     var xEnd by remember { mutableFloatStateOf(5.0f) }
     var xIncrement by remember { mutableFloatStateOf(0.1f) }
 
+    //Luodaan xValue ja yValue muuttujat, joita käytetään kun pisteitä lisätään listaan.
     var xValue1 by remember {mutableFloatStateOf(-5.0f)}
     var xValue2 by remember {mutableFloatStateOf(-5.0f)}
     var yValue1 = 0f
     var yValue2 = 0f
 
-    var e2: Expression
-    var x2: Argument
-    var y2: Argument
-
-    var e1: Expression
-    var x1: Argument
-    var y1: Argument
-
-    var formula1 by remember {mutableStateOf("")}
-    var formula2 by remember {mutableStateOf("")}
-
+    //Luodaan muuttujat, joilla tarkistetaan onko kaavat jo piirretty
     var chart1Drawn by remember {mutableStateOf(false)}
     var chart2Drawn by remember {mutableStateOf(false)}
 
@@ -105,9 +114,6 @@ fun GraphingCalculatorScreen3(navController: NavController) {
             } else {
                 steps = Calculator3lineChartList1.size
             }
-
-            //var yMin = 0f
-            //var yMax = 0f
 
             val xAxisData = AxisData.Builder()
                 .axisStepSize(30.dp)
