@@ -40,7 +40,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen1.route)
                 }
             ) {
-                Text("1 Kaava")
+                Text("Graafinen laskin 1: Yksi Kaava")
             }
 
             Button(
@@ -54,7 +54,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen2.route)
                 }
             ) {
-                Text("1 Kaava, mukautettu piirtoalue")
+                Text("Graafinen laskin 2: Yksi Kaava, mukautettu piirtoalue")
             }
 
             Button(
@@ -68,7 +68,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen3.route)
                 }
             ) {
-                Text("2 Kaavaa")
+                Text("Graafinen laskin 3: Kaksi Kaavaa")
             }
 
             Button(
@@ -82,7 +82,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen4.route)
                 }
             ) {
-                Text("?")
+                Text("Graafinen laskin 4: Ympyrän piirto")
             }
 
             Button(
@@ -96,7 +96,20 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen5.route)
                 }
             ) {
-                Text("1 Kaava, datamuunnos")
+                Text("Graafinen laskin 5: Datan muunnos")
+            }
+
+            Button(
+                shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Green,
+                    contentColor = Color.Black
+                ),
+                onClick = {
+                    navController.navigate(route = Screen.GraphingCalculatorScreen6.route)
+                }
+            ) {
+                Text("Graafinen laskin 6: Ominaisuudet yhdistetty")
             }
         }
     }

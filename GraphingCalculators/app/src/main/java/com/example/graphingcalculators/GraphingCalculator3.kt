@@ -53,9 +53,9 @@ import org.mariuszgromada.math.mxparser.Expression
  * Molemmat kaavat piirretään päällekkäin, joten molempia voidaan tutkia samanaikaisesti.
  * Tässäkin esimerkissä käyttäjä voi myös valita piirtoalueen sekä x lisäysarvon.
  *
- * Kun y:n arvot on laskettu, kaavat piirretään käyttäen YCharts WaveChart kuvaajaa.
+ * Kun y:n arvot on laskettu, kaavat piirretään käyttäen YCharts LineChart kuvaajaa.
  * Esimerkissä kaavion piirtoon liittyviä asioita ei ole kommentoitu.
- * Jos haluat opiskella miten kaavioita toteutetaan, palaa esimerkkiin WaveChartAppV1.
+ * Jos haluat opiskella miten kaavioita toteutetaan, palaa aiempiin esimerkkeihin, joissa kuvaajien piirtoa käydään läpi.
  */
 
 var Calculator3lineChartList1 = mutableListOf<Point>()
