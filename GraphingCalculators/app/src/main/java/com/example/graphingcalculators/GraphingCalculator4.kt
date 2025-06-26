@@ -1,6 +1,5 @@
 package com.example.graphingcalculators
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +31,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlin.math.abs
+
+//Ycharts importit
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
@@ -43,12 +48,10 @@ import co.yml.charts.ui.linechart.model.LinePlotData
 import co.yml.charts.ui.linechart.model.LineStyle
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
+
+//MathParser importit
 import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Expression
-import kotlin.math.abs
 
 /** Esimerkki ympyrän piirtämiseen
  *
@@ -66,29 +69,38 @@ var Calculator4lineChartListCenter = mutableListOf<Point>()
 @Composable
 fun GraphingCalculatorScreen4(navController: NavController) {
 
+    //Alustetaan text -muuttujat, joihin lisätään käyttäjän syöttämät tekstit tekstikentistä
     var hText by remember { mutableStateOf("") }
     var kText by remember { mutableStateOf("") }
     var rText by remember { mutableStateOf("") }
 
-    var centerPoint by remember {mutableStateOf("")}
-    var radius by remember {mutableStateOf("")}
+    //Laskutoimituksiin käytetyt muuttujat
+    var e1: Expression
+    var e2: Expression
 
-    var hDisplayText = ""
-    var kDisplayText = ""
-    var rDisplayText = ""
+    //x ja y -muuttujat, joita käytetään kun pisteitä lisätään listaan.
+    var xValue by remember {mutableFloatStateOf(0.0f)}
+    var yValue by remember {mutableFloatStateOf(0.0f)}
 
+    //Muuttujat h(leveys), k(korkeus), r(säde) ja t(rad) arvoille
     var h by remember { mutableFloatStateOf(0.0f) }
     var k by remember { mutableFloatStateOf(0.0f) }
     var r by remember { mutableFloatStateOf(0.0f) }
     var t by remember { mutableFloatStateOf(0.0f) }
+
+    //Muuttuja laskutiheydelle
     var tIncrement by remember {mutableFloatStateOf(0.0f)}
 
-    var e1: Expression
-    var e2: Expression
+    //text muuttujat, joihin lisätään keskipiste ja säde kun ympyrä piirretään.
+    var centerPoint by remember {mutableStateOf("")}
+    var radius by remember {mutableStateOf("")}
 
-    var xValue by remember {mutableFloatStateOf(0.0f)}
-    var yValue by remember {mutableFloatStateOf(0.0f)}
+    //Text muuttujat, joita käytetään arvojen näyttämiseen kaavassa.
+    var hDisplayText = ""
+    var kDisplayText = ""
+    var rDisplayText = ""
 
+    //Käyttöliittymän päivitykseen käytetty ylimääräinen muuttuja
     var uiUpdate by remember {mutableStateOf("")}
 
     hDisplayText = if(floatCheck(hText)) {
@@ -201,10 +213,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                     .width(370.dp)
                     .height(300.dp)
             ) {
-                Log.d("FormulaTest", "Checking if chart can be drawed")
-
                 if(Calculator4lineChartList.isNotEmpty() && Calculator4lineChartListCenter.isNotEmpty()){
-                    Log.d("FormulaTest", "Drawing Chart")
                     LineChart(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -349,8 +358,6 @@ fun GraphingCalculatorScreen4(navController: NavController) {
 
                                             yValue = e2.calculate().toFloat()
 
-                                            Log.d("CircleTest", "Point added: ($xValue, $yValue) with t value = $t")
-
                                             Calculator4lineChartList.add(Point(xValue, yValue))
 
                                             t = "%.2f".format(t + tIncrement).toFloat()
@@ -385,8 +392,6 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                                 while(Calculator4lineChartListCenter.isNotEmpty()) {
                                     Calculator4lineChartListCenter.removeAt(Calculator4lineChartListCenter.size -1)
                                 }
-                                Log.d("LenghtCheck", "Main Chart ${Calculator4lineChartList.size}")
-                                Log.d("LenghtCheck", "Center: ${Calculator4lineChartListCenter.size}")
                             }
                         } else {
                             Toast.makeText(context, "Taulukko on jo tyhjä!", Toast.LENGTH_SHORT).show()

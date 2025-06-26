@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -24,7 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 //YCharts Importit
@@ -55,35 +60,32 @@ import org.mariuszgromada.math.mxparser.Expression
  * Jos haluat opiskella miten kaavioita toteutetaan, palaa esimerkkiin WaveChartAppV1.
  */
 
-//Luodaan dynaaminen lista
+//Alustetaan dynaaminen lista datapisteille
 var Calculator2lineChartList = mutableListOf<Point>()
 
 @Composable
 fun GraphingCalculatorScreen2(navController: NavController) {
 
-    //Luodaan text -muuttuja
-    //Text muuttujaan lisätään käyttäjän syöttämä kaava tekstikentästä.
+    //Alustetaan text- muuttuja, johon lisätään käyttäjän syöttämät teksti tekstikentästä
     var text by remember { mutableStateOf("") }
 
-    //Luodaan formula -muuttuja
-    //Tähän muuttujaan lisätään kaava, kun käyttäjä painaa "piirrä kaavio".
-    //Tätä kaavaa käytetään kaavion pisteiden laskemiseen.
+    //Muuttuja johon lisätään kaava kun "piirrä kaava" näppäintä painetaan
     var formula by remember {mutableStateOf("")}
 
-    //Alustetaan argumentit ja lauseke kaavion pisteiden laskemiseen.
+    //Muuttuja jolla tarkistetaan onko kaava piirretty
+    var chart1Drawn by remember {mutableStateOf(false)}
+
+    //Laskutoimituksiin käytetyt muuttujat
     var e: Expression
     var x: Argument
     var y: Argument
 
-    //Luodaan xValue ja yValue muuttujat, joita käytetään kun pisteitä lisätään listaan.
+    //x ja y -muuttujat, joita käytetään kun pisteitä lisätään listaan.
     var xValue by remember {mutableFloatStateOf(0.5f)}
     var yValue = 0f
 
-    //Luodaan muuttuja, jolla tarkistetaan onko kaavaa jo piirretty
-    var chart1Drawn by remember {mutableStateOf(false)}
-
-    //Luodaan myös muuttujat xStart, xEnd ja xIncrement
-    //Näitä muuttujia käyttäjä pystyy säätäämään, vakioarvoina ovat -5x, 5x ja 0.1x
+    //Alustetaan muuttujat xStart, xEnd ja xIncrement
+    //Näillä muuttujilla käyttäjä voi säätää kaavan piirtoaluetta ja piirtotiheyttä.
     var xStart by remember { mutableFloatStateOf(-5.0f) }
     var xEnd by remember { mutableFloatStateOf(5.0f) }
     var xIncrement by remember { mutableFloatStateOf(0.1f) }
@@ -143,6 +145,34 @@ fun GraphingCalculatorScreen2(navController: NavController) {
                 gridLines = GridLines()
             )
 
+            Row() {
+                Text(
+                    modifier = Modifier
+                        .width(300.dp)
+                        .padding(10.dp, 20.dp, 0.dp, 0.dp),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    text = "Graafinen laskin 2: Yhden kaavan syöttö, säädettävä piirtoalue"
+                )
+
+                IconButton(
+                    modifier = Modifier
+                        .padding(20.dp, 20.dp, 0.dp, 0.dp),
+                    onClick = {
+
+                    }
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .height(50.dp)
+                            .width(50.dp),
+                        painter = painterResource(R.drawable.baseline_info_24),
+                        contentDescription = "Selected icon button"
+                    )
+                }
+
+            }
+
             //Näytetään ruudun yläreunassa käyttäjälle piirretty kaava
             Text(
                 modifier = Modifier.padding(10.dp),
@@ -171,7 +201,7 @@ fun GraphingCalculatorScreen2(navController: NavController) {
             //Tekstikenttä kaavan syöttämiseen.
             //Käyttäjän syöttämä kaava asetetaan text muuttujaan
             TextField(
-                modifier = Modifier.width(200.dp),
+                modifier = Modifier.width(150.dp),
                 value = text,
                 onValueChange = { newText ->
                     text = newText
@@ -184,7 +214,9 @@ fun GraphingCalculatorScreen2(navController: NavController) {
             Row() {
                 //Näppäin kaavan laskemiseen.
                 Button(
-                    modifier = Modifier.padding(0.dp, 0.dp, 20.dp, 0.dp),
+                    modifier = Modifier
+                        .width(160.dp)
+                        .padding(0.dp, 0.dp, 20.dp, 0.dp),
                     onClick = {
                         //Asetetaan käyttäjän syöttämä kaava text muuttujasta formula muuttujaan.
                         formula = text
@@ -267,25 +299,10 @@ fun GraphingCalculatorScreen2(navController: NavController) {
                             xStart = newText.toFloat()
                         },
                         label = {
-                            Text(text = "Syötä x Lähtöarvo")
+                            Text(text = "x Lähtöarvo")
                         },
                     )
 
-                    //Tekstikenttä x:n loppuarvon muokkaamiseen
-                    TextField(
-                        modifier = Modifier
-                            .padding(5.dp)
-                            .width(150.dp),
-                        value = xEnd.toString(),
-                        onValueChange = { newText ->
-                            xEnd = newText.toFloat()
-                        },
-                        label = {
-                            Text(text = "Syötä x Loppuarvo")
-                        },
-                    )
-                }
-                Column() {
                     //Tekstikenttä x:n lisäysarvon muokkaamiseen
                     TextField(
                         modifier = Modifier
@@ -296,7 +313,22 @@ fun GraphingCalculatorScreen2(navController: NavController) {
                             xIncrement = newText.toFloat()
                         },
                         label = {
-                            Text(text = "Syötä x lisäys")
+                            Text(text = "x lisäysarvo")
+                        },
+                    )
+                }
+                Column() {
+                    //Tekstikenttä x:n loppuarvon muokkaamiseen
+                    TextField(
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .width(150.dp),
+                        value = xEnd.toString(),
+                        onValueChange = { newText ->
+                            xEnd = newText.toFloat()
+                        },
+                        label = {
+                            Text(text = "x Loppuarvo")
                         },
                     )
 
@@ -309,7 +341,7 @@ fun GraphingCalculatorScreen2(navController: NavController) {
                             Toast.makeText(context, "X arvot asetettu!", Toast.LENGTH_SHORT).show()
                         }
                     ) {
-                        Text("Aseta X arvot")
+                        Text("Aseta arvot")
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.example.graphingcalculators
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import kotlin.math.abs
+
+//Ycharts importit
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
@@ -41,9 +43,10 @@ import co.yml.charts.ui.wavechart.WaveChart
 import co.yml.charts.ui.wavechart.model.Wave
 import co.yml.charts.ui.wavechart.model.WaveChartData
 import co.yml.charts.ui.wavechart.model.WavePlotData
+
+//MathParser importit
 import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Expression
-import kotlin.math.abs
 
 /** Esimerkki datan muunnoksiin
  *
@@ -55,28 +58,39 @@ import kotlin.math.abs
  * Jos haluat opiskella miten kaavioita toteutetaan, palaa aiempiin esimerkkeihin, joissa kuvaajien piirtoa käydään läpi.
  */
 
+//Index muuttujat potenssilaskuille
 var Calculator5squareXIndex = 0
 var Calculator5squareYIndex = 0
 
+//Index muuttujat neliöjuurilaskuille
 var Calculator5squareRootXIndex = 0
 var Calculator5squareRootYIndex = 0
 
+//Alustetaan dynaaminen lista datapisteille
 var Calculator5lineChartList = mutableListOf<Point>()
 
 @Composable
 fun GraphingCalculatorScreen5(navController: NavController) {
 
+    //Alustetaan text -muuttuja, johon lisätään käyttäjän syöttämä teksti tekstikentästä.
     var text by remember { mutableStateOf("") }
-    var xStart by remember { mutableFloatStateOf(-5.0f) }
-    var xEnd by remember { mutableFloatStateOf(5.0f) }
-    var xIncrement by remember { mutableFloatStateOf(0.1f) }
-    var xValue by remember {mutableFloatStateOf(-5f)}
 
+    //Muuttuja, johon lisätään kaava, kun "piirrä kaava" näppäintä painetaan
+    var formula by remember {mutableStateOf("")}
+
+    //Laskutoimituksiin käytetyt muuttujat
     var e: Expression
     var x: Argument
     var y: Argument
 
-    var formula by remember {mutableStateOf("")}
+    //x muuttuja, jota käytetään kun pisteitä lisätään listaan.
+    var xValue by remember {mutableFloatStateOf(-5f)}
+
+    //Alustetaan muuttujat xStart, xEnd ja xIncrement
+    //Näillä muuttujilla käyttäjä voi säätää kaavan piirtoaluetta ja piirtotiheyttä.
+    var xStart by remember { mutableFloatStateOf(-5.0f) }
+    var xEnd by remember { mutableFloatStateOf(5.0f) }
+    var xIncrement by remember { mutableFloatStateOf(0.1f) }
 
     Box(
         modifier = Modifier
@@ -151,10 +165,7 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                     .width(370.dp)
                     .height(300.dp)
             ) {
-                Log.d("FormulaTest", "Checking if chart can be drawed")
-
                 if(Calculator5lineChartList.isNotEmpty()){
-                    Log.d("FormulaTest", "Drawing Chart")
                     WaveChart(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -187,9 +198,6 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                                 e = Expression("y", y)
 
                                 Calculator5lineChartList.add(Point(xValue, e.calculate().toFloat(), ""))
-
-                                Log.d("FormulaTest", "Point added to list is: x: $xValue, y: " + e.calculate().toString())
-                                Log.d("FormulaTest", "Point added is in position ${Calculator5lineChartList.size}")
 
                                 xValue = floatAddition(xValue, xIncrement)
                             }
@@ -247,8 +255,6 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                                 val x = floatSquared(Calculator5lineChartList[Calculator5squareXIndex].x)
                                 Calculator5lineChartList[Calculator5squareXIndex] = Point(x,y)
                                 Calculator5squareXIndex++
-
-                                Log.d("modification", "Arvo $Calculator5squareXIndex päivitetty x: $x ja y: $y arvoilla")
                             }
 
                             text = " "
@@ -277,8 +283,6 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                                 val y = floatSquared(Calculator5lineChartList[Calculator5squareYIndex].y)
                                 Calculator5lineChartList[Calculator5squareYIndex] = Point(x,y)
                                 Calculator5squareYIndex++
-
-                                Log.d("modification", "Arvo $Calculator5squareYIndex päivitetty x: $x ja y: $y arvoilla")
                             }
                             text = " "
                             text = ""
@@ -306,8 +310,6 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                                 val x = floatSquareRoot(Calculator5lineChartList[Calculator5squareRootXIndex].x)
                                 Calculator5lineChartList[Calculator5squareRootXIndex] = Point(x,y)
                                 Calculator5squareRootXIndex++
-
-                                Log.d("modification", "Arvo $Calculator5squareRootXIndex päivitetty x: $x ja y: $y arvoilla")
                             }
 
                             text = " "
@@ -336,8 +338,6 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                                 val x = floatSquareRoot(Calculator5lineChartList[Calculator5squareRootYIndex].y)
                                 Calculator5lineChartList[Calculator5squareRootYIndex] = Point(x,y)
                                 Calculator5squareRootYIndex++
-
-                                Log.d("modification", "Arvo $Calculator5squareRootYIndex päivitetty x: $x ja y: $y arvoilla")
                             }
 
                             text = " "

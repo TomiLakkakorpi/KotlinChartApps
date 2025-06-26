@@ -40,7 +40,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen1.route)
                 }
             ) {
-                Text("Graafinen laskin 1: Yksi Kaava")
+                Text("1: Yksi Kaava")
             }
 
             Button(
@@ -54,7 +54,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen2.route)
                 }
             ) {
-                Text("Graafinen laskin 2: Yksi Kaava, mukautettu piirtoalue")
+                Text("2: Yksi Kaava, mukautettu piirtoalue")
             }
 
             Button(
@@ -68,7 +68,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen3.route)
                 }
             ) {
-                Text("Graafinen laskin 3: Kaksi Kaavaa")
+                Text("3: Kaksi Kaavaa")
             }
 
             Button(
@@ -82,7 +82,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen4.route)
                 }
             ) {
-                Text("Graafinen laskin 4: Ympyrän piirto")
+                Text("4: Ympyrän piirto")
             }
 
             Button(
@@ -96,7 +96,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen5.route)
                 }
             ) {
-                Text("Graafinen laskin 5: Datan muunnos")
+                Text("5: Datan muunnos")
             }
 
             Button(
@@ -109,7 +109,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen6.route)
                 }
             ) {
-                Text("Graafinen laskin 6: Ominaisuudet yhdistetty")
+                Text("6: Ominaisuudet yhdistetty")
             }
         }
     }

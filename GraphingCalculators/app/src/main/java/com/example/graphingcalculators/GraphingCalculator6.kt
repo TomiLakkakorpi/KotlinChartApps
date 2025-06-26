@@ -1,6 +1,5 @@
 package com.example.graphingcalculators
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -30,6 +29,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlin.math.abs
+
+//Ycharts importit
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.extensions.formatToSinglePrecision
 import co.yml.charts.common.model.Point
@@ -41,12 +46,10 @@ import co.yml.charts.ui.linechart.model.LinePlotData
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
+
+//MathParser importit
 import org.mariuszgromada.math.mxparser.Argument
 import org.mariuszgromada.math.mxparser.Expression
-import kotlin.math.abs
 
 /** Esimerkki, jossa aiempien esimerkkien ominaisuudet on yhdistetty yhteen (paitsi ympyrän piirto)
  *
@@ -54,38 +57,42 @@ import kotlin.math.abs
  * Jos haluat opiskella miten kaavioita toteutetaan, palaa aiempiin esimerkkeihin, joissa kuvaajien piirtoa käydään läpi.
  */
 
+//Index muuttujat potenssilaskuille
 var CalculatorMainSquareXIndex1 = 0
 var CalculatorMainSquareYIndex1 = 0
 var CalculatorMainSquareXIndex2 = 0
 var CalculatorMainSquareYIndex2 = 0
 
+//Index muuttujat neliöjuurilaskuille
 var CalculatorMainSquareRootXIndex1 = 0
 var CalculatorMainSquareRootYIndex1 = 0
 var CalculatorMainSquareRootXIndex2 = 0
 var CalculatorMainSquareRootYIndex2 = 0
 
+//Index muuttujat, käyrän pituuden laskemiseen
 var CalcMainDistanceIndex1 = 0
 var CalcMainDistanceIndex2 = 0
 
+//Alustetaan dynaamiset listat datapisteille
 var CalculatorMainLineChartList1 = mutableListOf<Point>()
 var CalculatorMainLineChartList2 = mutableListOf<Point>()
 
+//Muuttujat, joilla tarkistetaan onko kaavan dataa muunnettu.
 var isChart1Altered = true
 var isChart2Altered = true
 
 @Composable
 fun GraphingCalculatorScreen6(navController: NavController) {
 
+    //Alustetaan text -muuttujat, joihin lisätään käyttäjän syöttämät tekstit tekstikentistä.
     var text1 by remember { mutableStateOf("") }
     var text2 by remember { mutableStateOf("") }
 
-    var xStart by remember { mutableFloatStateOf(-5.0f) }
-    var xEnd by remember { mutableFloatStateOf(5.0f) }
-    var xIncrement by remember { mutableFloatStateOf(0.1f) }
+    //Muuttujat, joihin lisätään kaavat, kun "piirrä kaava" näppäintä painetaan
+    var formula1 by remember {mutableStateOf("")}
+    var formula2 by remember {mutableStateOf("")}
 
-    var xValue1 by remember {mutableFloatStateOf(-5f)}
-    var xValue2 by remember {mutableFloatStateOf(-5f)}
-
+    //Laskutoimituksiin käytetyt muuttujat
     var e1: Expression
     var x1: Argument
     var y1: Argument
@@ -94,23 +101,33 @@ fun GraphingCalculatorScreen6(navController: NavController) {
     var x2: Argument
     var y2: Argument
 
+    //x muuttujat, joita käytetään kun pisteitä lisätään listaan.
+    var xValue1 by remember {mutableFloatStateOf(-5f)}
+    var xValue2 by remember {mutableFloatStateOf(-5f)}
+
+    //Alustetaan muuttujat xStart, xEnd ja xIncrement
+    //Näillä muuttujilla käyttäjä voi säätää kaavan piirtoaluetta ja piirtotiheyttä.
+    var xStart by remember { mutableFloatStateOf(-5.0f) }
+    var xEnd by remember { mutableFloatStateOf(5.0f) }
+    var xIncrement by remember { mutableFloatStateOf(0.1f) }
+
+    //Muuttujat joihin lisätään kaavojen käyrien pituudet
     var distanceValue1 by remember {mutableFloatStateOf(0f)}
     var distanceValue2 by remember {mutableFloatStateOf(0f)}
 
-    var formula1 by remember {mutableStateOf("")}
-    var formula2 by remember {mutableStateOf("")}
-
+    //Muuttujat joita käytetään kaavojen näyttämiseen käyttöliittymässä
     var formulaLine1 = ""
     var formulaLine2 = ""
 
+    //Muuttujat joita käytetään käyrien pituuden näyttämiseen käyttöliittymässä
     var distanceLine1 = ""
     var distanceLine2 = ""
 
-    var switchLine = ""
-
+    //Muuttujat, joilla tarkistetaan onko kaavojen dataa muutettu
     var alteringChart1 by remember {mutableStateOf(false)}
     var alteringChart2 by remember {mutableStateOf(false)}
 
+    //Muuttujat, joilla tarkistetaan onko kaavojen pituus laskettu.
     var chart1DistanceCalculated by remember {mutableStateOf(false)}
     var chart2DistanceCalculated by remember {mutableStateOf(false)}
 
@@ -420,14 +437,16 @@ fun GraphingCalculatorScreen6(navController: NavController) {
             Column() {
                 //Position 1.1
                 Text(
+                    modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp),
                     fontSize = 15.sp,
-                    text = "Muokkaa \n kaavaa 1"
+                    text = "Muokkaa \nkaavaa 1"
                 )
 
                 //Position 1.2
                 Text(
+                    modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp),
                     fontSize = 15.sp,
-                    text = "Muokkaa \n kaavaa 2"
+                    text = "Muokkaa \nkaavaa 2"
                 )
 
                 //Position 1.3
@@ -866,23 +885,6 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                         contentColor = Color.Black
                     ),
                     onClick = {
-
-                    }
-                ) {
-                    Text("")
-                }
-
-                //Position 4.3
-                Button(
-                    modifier = Modifier
-                        .padding(5.dp, 1.dp, 5.dp, 1.dp)
-                        .width(200.dp),
-                    shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Cyan,
-                        contentColor = Color.Black
-                    ),
-                    onClick = {
                         if(CalculatorMainLineChartList1.isNotEmpty()) {
                             CoroutineScope(IO).launch {
                                 while(CalcMainDistanceIndex1 <= CalculatorMainLineChartList1.size -2) {
@@ -927,7 +929,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     Text("Laske pituus")
                 }
 
-                //Position 4.4
+                //Position 4.3
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -986,6 +988,23 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     }
                 ) {
                     Text("Tyhjennä kaavat")
+                }
+
+                //Position 4.4
+                Button(
+                    modifier = Modifier
+                        .padding(5.dp, 1.dp, 5.dp, 1.dp)
+                        .width(200.dp),
+                    shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Green,
+                        contentColor = Color.Black
+                    ),
+                    onClick = {
+                        navController.navigateUp()
+                    }
+                ) {
+                    Text("Päävalikkoon")
                 }
             }
         }

@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -22,7 +24,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 //YCharts Importit
@@ -53,32 +58,29 @@ import org.mariuszgromada.math.mxparser.Expression
  * Jos haluat opiskella miten kaavioita toteutetaan, palaa esimerkkiin WaveChartAppV1.
  */
 
-//Luodaan dynaaminen lista
+//Alustetaan dynaaminen lista datapisteille
 var calculator1lineChartList = mutableListOf<Point>()
 
 @Composable
 fun GraphingCalculatorScreen1(navController: NavController) {
 
-    //Luodaan text -muuttuja
-    //Text muuttujaan lisätään käyttäjän syöttämä kaava tekstikentästä.
+    //Alustetaan text- muuttuja, johon lisätään käyttäjän syöttämät teksti tekstikentästä
     var text by remember { mutableStateOf("") }
 
-    //Luodaan formula -muuttuja
-    //Tähän muuttujaan lisätään kaava, kun käyttäjä painaa "piirrä kaavio".
-    //Tätä kaavaa käytetään kaavion pisteiden laskemiseen.
+    //Muuttuja johon lisätään kaava kun "piirrä kaava" näppäintä painetaan
     var formula by remember {mutableStateOf("")}
 
-    //Alustetaan argumentit ja lauseke kaavion pisteiden laskemiseen.
+    //Muuttuja jolla tarkistetaan onko kaava piirretty
+    var chart1Drawn by remember {mutableStateOf(false)}
+
+    //Laskutoimituksiin käytetyt muuttujat
     var e: Expression
     var x: Argument
     var y: Argument
 
-    //Luodaan xValue ja yValue muuttujat, joita käytetään kun pisteitä lisätään listaan.
+    //x ja y -muuttujat, joita käytetään kun pisteitä lisätään listaan.
     var xValue = -5f
     var yValue = 0f
-
-    //Luodaan muuttuja, jolla tarkistetaan onko kaavaa jo piirretty
-    var chart1Drawn by remember {mutableStateOf(false)}
 
     Box(
         modifier = Modifier
@@ -133,6 +135,14 @@ fun GraphingCalculatorScreen1(navController: NavController) {
                 xAxisData = xAxisData,
                 yAxisData = yAxisData,
                 gridLines = GridLines()
+            )
+
+
+            Text(
+                modifier = Modifier.padding(10.dp, 20.dp, 0.dp, 0.dp),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                text = "Graafinen laskin 1: Yhden kaavan syöttö"
             )
 
             //Näytetään ruudun yläreunassa käyttäjälle piirretty kaava
