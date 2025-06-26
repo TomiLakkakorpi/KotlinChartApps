@@ -248,6 +248,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
 
     val context = LocalContext.current
 
+    //Määritellään mitä kaavojen tekstikentissä näytetään
     if(formula1.isNotEmpty() && formula2.isNotEmpty()) {
         formulaLine1 = "Kaava 1: $formula1"
         formulaLine2 = "Kaava 2: $formula2"
@@ -262,6 +263,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
         formulaLine2 = "Syötä vähintään yksi kaava!"
     }
 
+    //Määritellään mitä pituuden tekstikentissä näytetään.
     if(chart1DistanceCalculated && chart2DistanceCalculated) {
         distanceLine1 = "pituus: ${distanceValue1.formatToSinglePrecision()}"
         distanceLine2 = "pituus: ${distanceValue2.formatToSinglePrecision()}"
@@ -323,6 +325,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                             .fillMaxHeight()
                             .border(BorderStroke(2.dp, Color.Black))
                     ) {
+                        //Jos molemmissa listoissa on dataa, kutsutaan LineChart funktiota, jonka dataksi on määritelty kaksi viivaa.
                         if(CalculatorMainLineChartList1.isNotEmpty() && CalculatorMainLineChartList2.isNotEmpty()){
                             LineChart(
                                 modifier = Modifier
@@ -332,6 +335,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                             )
                         }
 
+                        //Jos vain listassa 1 on dataa, kutsutaan LineChart funktiota, jonka dataksi on määritelty vain yksi viiva.
                         if(CalculatorMainLineChartList1.isNotEmpty() && CalculatorMainLineChartList2.isEmpty()){
                             LineChart(
                                 modifier = Modifier
@@ -341,6 +345,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                             )
                         }
 
+                        //Jos vain listassa 2 on dataa, kutsutaan LineChart funktiota, jonka dataksi on määritelty vain yksi viiva.
                         if(CalculatorMainLineChartList1.isEmpty() && CalculatorMainLineChartList2.isNotEmpty()){
                             LineChart(
                                 modifier = Modifier
@@ -357,6 +362,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
         Row(
             Modifier.fillMaxWidth()
         ) {
+            //Tekstikenttä kaavan 1 syöttämiseen. Kaava asetetaan text1 muuttujaan
             TextField(
                 modifier = Modifier
                     .padding(5.dp)
@@ -371,6 +377,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                 },
             )
 
+            //tekstikenttä kaavan 2 syöttämiseen. Kaava asetetaan text2 muuttujaan
             TextField(
                 modifier = Modifier
                     .padding(5.dp)
@@ -387,6 +394,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
         }
 
         Row() {
+            //Tekstikenttä x lähtöarvon syöttämiseen, arvo asetetaan xStart muuttujaan.
             TextField(
                 modifier = Modifier
                     .padding(5.dp)
@@ -403,6 +411,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                 },
             )
 
+            //Tekstikenttä x loppuarvon syöttämiseen, arvo asetetaan xEnd muuttujaan.
             TextField(
                 modifier = Modifier
                     .padding(5.dp)
@@ -417,6 +426,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                 },
             )
 
+            //Tekstikenttä x lisäysarvon syöttämiseen, arvo asetetaan xIncrement muuttujaan.
             TextField(
                 modifier = Modifier
                     .padding(5.dp)
@@ -442,14 +452,14 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     text = "Muokkaa \nkaavaa 1"
                 )
 
-                //Position 1.2
+
                 Text(
                     modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp),
                     fontSize = 15.sp,
                     text = "Muokkaa \nkaavaa 2"
                 )
 
-                //Position 1.3
+                //Näppäin x² korottamiseen
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -467,9 +477,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "x arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareXIndex1 < CalculatorMainLineChartList1.size) {
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta.
                                     val y = CalculatorMainLineChartList1[CalculatorMainSquareXIndex1].y
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta ja korotetaan se toiseen potenssiin.
                                     val x = floatSquared(CalculatorMainLineChartList1[CalculatorMainSquareXIndex1].x)
+
+                                    //Kun alkuperäinen y:n arvo, ja korotettu x:n arvo on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList1[CalculatorMainSquareXIndex1] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareXIndex1++
                                 }
 
@@ -489,9 +507,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "x arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareXIndex2 < CalculatorMainLineChartList2.size) {
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta.
                                     val y = CalculatorMainLineChartList2[CalculatorMainSquareXIndex2].y
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta ja korotetaan se toiseen potenssiin.
                                     val x = floatSquared(CalculatorMainLineChartList2[CalculatorMainSquareXIndex2].x)
+
+                                    //Kun alkuperäinen y:n arvo, ja korotettu x:n arvo on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList2[CalculatorMainSquareXIndex2] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareXIndex2++
                                 }
 
@@ -515,7 +541,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     )
                 }
 
-                //Position 1.4
+                //Näppäin y² korottamiseen
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -533,9 +559,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "y arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareYIndex1 < CalculatorMainLineChartList1.size) {
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta.
                                     val x = CalculatorMainLineChartList1[CalculatorMainSquareYIndex1].x
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta ja korotetaan se toiseen potenssiin.
                                     val y = floatSquared(CalculatorMainLineChartList1[CalculatorMainSquareYIndex1].y)
+
+                                    //Kun alkuperäinen x:n arvo, ja korotettu y:n arvo on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList1[CalculatorMainSquareYIndex1] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareYIndex1++
                                 }
                                 text1 = ""
@@ -554,9 +588,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "y arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareYIndex2 < CalculatorMainLineChartList2.size) {
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta.
                                     val x = CalculatorMainLineChartList2[CalculatorMainSquareYIndex2].x
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta ja korotetaan se toiseen potenssiin.
                                     val y = floatSquared(CalculatorMainLineChartList2[CalculatorMainSquareYIndex2].y)
+
+                                    //Kun alkuperäinen x:n arvo, ja korotettu y:n arvo on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList2[CalculatorMainSquareYIndex2] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareYIndex2++
                                 }
                                 text2 = ""
@@ -580,9 +622,8 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                 }
             }
 
-            //Column 2
             Column() {
-                //Position 2.1
+                //Näppäin jolla määritetään, halutaanko kaavaa 1 muokata vai ei
                 Switch(
                     checked = alteringChart1,
                     onCheckedChange = {
@@ -590,7 +631,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     }
                 )
 
-                //Position 2.2
+                //Näppäin jolla määritetään, halutaanko kaavaa 2 muokata vai ei
                 Switch(
                     checked = alteringChart2,
                     onCheckedChange = {
@@ -598,7 +639,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     }
                 )
 
-                //Position 2.3
+                //Näppäin x neliöjuuren laskemiseen
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -616,9 +657,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "x arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareRootXIndex1 < CalculatorMainLineChartList1.size) {
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta.
                                     val y = CalculatorMainLineChartList1[CalculatorMainSquareRootXIndex1].y
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta ja lasketaan sen neliöjuuri.
                                     val x = floatSquareRoot(CalculatorMainLineChartList1[CalculatorMainSquareRootXIndex1].x)
+
+                                    //Kun alkuperäinen y:n arvo, ja x:n neliöjuuri on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList1[CalculatorMainSquareRootXIndex1] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareRootXIndex1++
                                 }
 
@@ -638,9 +687,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "x arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareRootXIndex2 < CalculatorMainLineChartList2.size) {
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta.
                                     val y = CalculatorMainLineChartList2[CalculatorMainSquareRootXIndex2].y
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta ja lasketaan sen neliöjuuri.
                                     val x = floatSquareRoot(CalculatorMainLineChartList2[CalculatorMainSquareRootXIndex2].x)
+
+                                    //Kun alkuperäinen y:n arvo, ja x:n neliöjuuri on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList2[CalculatorMainSquareRootXIndex2] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareRootXIndex2++
                                 }
 
@@ -682,9 +739,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                                 Toast.makeText(context, "y arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
                                 while(CalculatorMainSquareRootYIndex1 < CalculatorMainLineChartList1.size) {
-                                    val y = CalculatorMainLineChartList1[CalculatorMainSquareRootYIndex1].x
-                                    val x = floatSquareRoot(CalculatorMainLineChartList1[CalculatorMainSquareRootYIndex1].y)
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta.
+                                    val x = CalculatorMainLineChartList1[CalculatorMainSquareRootYIndex1].x
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta ja lasketaan sen neliöjuuri.
+                                    val y = floatSquareRoot(CalculatorMainLineChartList1[CalculatorMainSquareRootYIndex1].y)
+
+                                    //Kun alkuperäinen x:n arvo, ja y:n neliöjuuri on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList1[CalculatorMainSquareRootYIndex1] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareRootYIndex1++
                                 }
 
@@ -703,10 +768,19 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                             } else if(CalculatorMainSquareRootYIndex2 == CalculatorMainLineChartList2.size) {
                                 Toast.makeText(context, "y arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                             } else {
+                                //Otetaan x:n arvo listasta index arvon kohdasta.
                                 while(CalculatorMainSquareRootYIndex2 < CalculatorMainLineChartList2.size) {
-                                    val y = CalculatorMainLineChartList2[CalculatorMainSquareRootYIndex2].x
-                                    val x = floatSquareRoot(CalculatorMainLineChartList2[CalculatorMainSquareRootYIndex2].y)
+
+                                    //Otetaan x:n arvo listasta index arvon kohdasta.
+                                    val x = CalculatorMainLineChartList2[CalculatorMainSquareRootYIndex2].x
+
+                                    //Otetaan y:n arvo listasta index arvon kohdasta ja lasketaan sen neliöjuuri.
+                                    val y = floatSquareRoot(CalculatorMainLineChartList2[CalculatorMainSquareRootYIndex2].y)
+
+                                    //Kun alkuperäinen x:n arvo, ja y:n neliöjuuri on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                     CalculatorMainLineChartList2[CalculatorMainSquareRootYIndex2] = Point(x,y)
+
+                                    //Lisätään index arvoa seuraavaa laskua varten.
                                     CalculatorMainSquareRootYIndex2++
                                 }
 
@@ -801,9 +875,8 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                 }
             }
 
-            //Column 4
             Column() {
-                //Position 4.
+                //Näppäin kaavan piirtoon
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -828,17 +901,26 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                         if(text1.isNotEmpty() && formula1 != text1 || text1.isNotEmpty() && formula1 == text1 && isChart1Altered) {
                             formula1 = text1
                             CoroutineScope(IO).launch {
+
+                                //Jos listassa 1 on dataa, poistetaan se ensin
                                 if (CalculatorMainLineChartList1.isNotEmpty()) {
                                     while(CalculatorMainLineChartList1.isNotEmpty()) {
+                                        //Poistetaan listan viimeinen arvo, kunnes lista on tyhjä
                                         CalculatorMainLineChartList1.removeAt(CalculatorMainLineChartList1.size -1)
                                     }
                                 }
 
                                 while(xValue1 <= xEnd) {
+
+                                    //Määritellään x ja y argumentit ja lasketaan y:n arvo kaavalla ja x:n arvolla
                                     x1 = Argument("x=$xValue1")
                                     y1 = Argument(formula1, x1)
                                     e1 = Expression("y", y1)
+
+                                    //lisätään pisteet listaan 1.
                                     CalculatorMainLineChartList1.add(Point(xValue1, e1.calculate().toFloat(), ""))
+
+                                    //Lisätään x:n arvoon xIncrement verran seuraavaa laskukertaa varten.
                                     xValue1 = xValue1 + xIncrement
                                 }
                                 text1 = ""
@@ -850,17 +932,26 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                         if(text2.isNotEmpty() && formula2 != text2 || text2.isNotEmpty() && formula2 == text2 && isChart2Altered) {
                             formula2 = text2
                             CoroutineScope(IO).launch {
+
+                                //Jos listassa 1 on dataa, poistetaan se ensin
                                 if (CalculatorMainLineChartList2.isNotEmpty()) {
                                     while(CalculatorMainLineChartList2.isNotEmpty()) {
+                                        //Poistetaan listan viimeinen arvo, kunnes lista on tyhjä
                                         CalculatorMainLineChartList2.removeAt(CalculatorMainLineChartList2.size -1)
                                     }
                                 }
 
                                 while(xValue2 <= xEnd) {
+
+                                    //Määritellään x ja y argumentit ja lasketaan y:n arvo kaavalla ja x:n arvolla
                                     x2 = Argument("x=$xValue2")
                                     y2 = Argument(formula2, x2)
                                     e2 = Expression("y", y2)
+
+                                    //lisätään pisteet listaan 2.
                                     CalculatorMainLineChartList2.add(Point(xValue2, e2.calculate().toFloat(), ""))
+
+                                    //Lisätään x:n arvoon xIncrement verran seuraavaa laskukertaa varten.
                                     xValue2 = xValue2 + xIncrement
                                 }
 
@@ -888,14 +979,21 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                         if(CalculatorMainLineChartList1.isNotEmpty()) {
                             CoroutineScope(IO).launch {
                                 while(CalcMainDistanceIndex1 <= CalculatorMainLineChartList1.size -2) {
+
+                                    //Haetaan kahden pisteen x ja y arvot.
                                     var list1x1 = CalculatorMainLineChartList1[CalcMainDistanceIndex1].x
                                     var list1x2 = CalculatorMainLineChartList1[CalcMainDistanceIndex1+1].x
                                     var list1y1 = CalculatorMainLineChartList1[CalcMainDistanceIndex1].y
                                     var list1y2 = CalculatorMainLineChartList1[CalcMainDistanceIndex1+1].y
+
+                                    //Asetetaan distanceValue1 muuttujan arvoksi, nykyinen arvo + kahden pisteen laskettu väli.
                                     distanceValue1 = distanceValue1 + distanceBetweenPoints(list1x1, list1y1, list1x2, list1y2)
+
+                                    //lisätään index arvoa seuraavaa laskua varten
                                     CalcMainDistanceIndex1++
                                 }
 
+                                //Kun laskut on tehty, pyöristetään arvo yhden desimaalin tarkkuuteen.
                                 distanceValue1.formatToSinglePrecision()
                                 chart1DistanceCalculated = true
                             }
@@ -904,11 +1002,17 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                         if(CalculatorMainLineChartList2.isNotEmpty()) {
                             CoroutineScope(IO).launch {
                                 while(CalcMainDistanceIndex2 <= CalculatorMainLineChartList2.size -2) {
+
+                                    //Haetaan kahden pisteen x ja y arvot.
                                     var list2x1 = CalculatorMainLineChartList2[CalcMainDistanceIndex2].x
                                     var list2x2 = CalculatorMainLineChartList2[CalcMainDistanceIndex2+1].x
                                     var list2y1 = CalculatorMainLineChartList2[CalcMainDistanceIndex2].y
                                     var list2y2 = CalculatorMainLineChartList2[CalcMainDistanceIndex2+1].y
+
+                                    //Asetetaan distanceValue2 muuttujan arvoksi, nykyinen arvo + kahden pisteen laskettu väli.
                                     distanceValue2 = distanceValue2 + distanceBetweenPoints(list2x1, list2y1, list2x2, list2y2)
+
+                                    //lisätään index arvoa seuraavaa laskua varten
                                     CalcMainDistanceIndex2++
                                 }
 
@@ -946,6 +1050,8 @@ fun GraphingCalculatorScreen6(navController: NavController) {
 
                         if (CalculatorMainLineChartList1.isNotEmpty()) {
                             while(CalculatorMainLineChartList1.isNotEmpty()) {
+                                //Poistetaan listan arvo kohdasta listan koko -1, eli viimeinen arvo.
+                                //Tätä toistetaan kunnes lista on tyhjä
                                 CalculatorMainLineChartList1.removeAt(CalculatorMainLineChartList1.size -1)
                             }
 
@@ -967,6 +1073,8 @@ fun GraphingCalculatorScreen6(navController: NavController) {
 
                         if (CalculatorMainLineChartList2.isNotEmpty()) {
                             while(CalculatorMainLineChartList2.isNotEmpty()) {
+                                //Poistetaan listan arvo kohdasta listan koko -1, eli viimeinen arvo.
+                                //Tätä toistetaan kunnes lista on tyhjä
                                 CalculatorMainLineChartList2.removeAt(CalculatorMainLineChartList2.size -1)
                             }
 
@@ -1031,6 +1139,7 @@ private fun floatSquareRoot(num: Float): Float {
     return value.toFloat()
 }
 
+//Funktio kahden pisteen välisen etäisyyden laskemiseen.
 private fun distanceBetweenPoints(x1: Float, y1: Float, x2: Float, y2: Float): Float {
     var xDifference = x2-x1
     var yDifference = y2-y1

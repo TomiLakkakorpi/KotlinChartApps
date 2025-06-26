@@ -103,6 +103,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
     //Käyttöliittymän päivitykseen käytetty ylimääräinen muuttuja
     var uiUpdate by remember {mutableStateOf("")}
 
+    //Määritellään mitä h arvon kohdalla näytetään kaavassa
     hDisplayText = if(floatCheck(hText)) {
         if(hText.toFloat() > 0.0f) {
             "+$hText"
@@ -115,6 +116,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
         "-h"
     }
 
+    //Määritellään mitä k arvon kohdalla näytetään kaavassa
     kDisplayText = if(floatCheck(kText)) {
         if(kText.toFloat() > 0.0f) {
             "+$kText"
@@ -127,6 +129,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
         "-h"
     }
 
+    //Määritellään mitä r arvon kohdalla näytetään kaavassa
     rDisplayText = if(floatCheck(rText)) {
         if(positiveNumberCheck(rText)) {
             rText
@@ -264,6 +267,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
             Row(
                 modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
             ) {
+                //Tekstikenttä h arvolle, asetetaan käyttäjän syöttämä teksti hText muuttujaan.
                 TextField(
                     modifier = Modifier
                         .padding(5.dp)
@@ -280,6 +284,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                         Text(text = "h arvo")
                     },
                 )
+                //Tekstikenttä k arvolle, asetetaan käyttäjän syöttämä teksti kText muuttujaan.
                 TextField(
                     textStyle = TextStyle(fontSize = 15.sp),
                     modifier = Modifier
@@ -297,6 +302,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                         Text(text = "k arvo")
                     },
                 )
+                //Tekstikenttä r arvolle, asetetaan käyttäjän syöttämä teksti rText muuttujaan.
                 TextField(
                     textStyle = TextStyle(fontSize = 15.sp),
                     modifier = Modifier
@@ -321,16 +327,24 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                     modifier = Modifier.padding(0.dp, 0.dp, 10.dp, 0.dp),
                     onClick = {
 
-
+                        //Varmistetaan että listat ovat tyhjiä
                         if(Calculator4lineChartList.isEmpty() && Calculator4lineChartListCenter.isEmpty()) {
+
+                            //varmistetaan, että syötetyt k, h ja r arvot ovat hyväksyttäviä float -arvoja.
                             if(floatCheck(kText) && floatCheck(hText) && floatCheck(rText)) {
+
+                                //Varmistetaan, että säde on positiivinen
                                 if(positiveNumberCheck(rText)) {
                                     Toast.makeText(context, "Ympyrää lasketaan, odota hetki!", Toast.LENGTH_SHORT).show()
 
+                                    //Ympyrän keskipisteet saadaan selvittämällä h ja k arvojen vastaluvut kertomalla luvut -1:llä
                                     k = kText.toFloat() * -1.0f
                                     h = hText.toFloat() * -1.0f
+
+                                    //Säde saadaan selville laskemalla neliöjuuri r² arvosta
                                     r = floatSquareRoot(rText.toFloat())
 
+                                    //Määritellään laskutiheys säteen mukaan (isompi ympyrä --> lasketaan harvemmin, pienempi ympyrä --> pisteet lasketaan tiheämmin)
                                     if(r >= 100) {
                                         tIncrement = 0.1f
                                     } else if(r >= 50) {
@@ -339,7 +353,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                                         tIncrement = 0.01f
                                     }
 
-                                    //Center dot
+                                    //Piirretään keskelle ympyrää keskipiste.
                                     Calculator4lineChartListCenter.add(Point(h+0.05f, k))
                                     Calculator4lineChartListCenter.add(Point(h, k-0.05f))
                                     Calculator4lineChartListCenter.add(Point(h-0.05f, k))
@@ -347,25 +361,34 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                                     Calculator4lineChartListCenter.add(Point(h+0.05f, k))
 
                                     CoroutineScope(IO).launch {
+                                        //Ympyrän pisteiden arvot lasketaan välille 0-2 radiaania.
                                         while (t < 2) {
+
+                                            //Lasketaan x arvo kaavalla: x = h + r * cos(t), jossa t arvo on 0-2 radiaania
                                             var xFormula = Argument("x=$h+$r*cos($t π)")
                                             e1 = Expression("x", xFormula)
 
+                                            //Asetetaan laskettu arvo, xValue muuttujaan.
                                             xValue = e1.calculate().toFloat()
 
+                                            //Lasketaan y arvo kaavalla: y = k + r * sin(t), jossa t arvo on 0-2 radiaania
                                             var yFormula = Argument("y=$k+$r*sin($t π)")
                                             e2 = Expression("y", yFormula)
 
+                                            //Asetetaan laskettu arvo, yValue muuttujaan.
                                             yValue = e2.calculate().toFloat()
 
+                                            //Lisätään xValue ja yValue pisteet listaan.
                                             Calculator4lineChartList.add(Point(xValue, yValue))
 
+                                            //Lisätään t arvoon tIncrement verran ja pyöristetään se kahteen desimaaliin.
                                             t = "%.2f".format(t + tIncrement).toFloat()
                                         }
 
                                         uiUpdate = " "
                                         uiUpdate = ""
                                     }
+                                    //Asetetaan arvot keskipisteen ja säteen tekstimuuttujiin
                                     centerPoint = "($h,$k)"
                                     radius = "%.2f".format(r)
                                 } else {
@@ -387,9 +410,13 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                         if (Calculator4lineChartList.isNotEmpty() && Calculator4lineChartListCenter.isNotEmpty()) {
                             CoroutineScope(IO).launch {
                                 while(Calculator4lineChartList.isNotEmpty()) {
+                                    //Poistetaan listasta arvo kohdasta listan koko -1, eli listan viimeinen elementti.
+                                    //Tätä toistetaan kunnes lista on tyhjä.
                                     Calculator4lineChartList.removeAt(Calculator4lineChartList.size -1)
                                 }
                                 while(Calculator4lineChartListCenter.isNotEmpty()) {
+                                    //Poistetaan listasta arvo kohdasta listan koko -1, eli listan viimeinen elementti.
+                                    //Tätä toistetaan kunnes lista on tyhjä.
                                     Calculator4lineChartListCenter.removeAt(Calculator4lineChartListCenter.size -1)
                                 }
                             }
@@ -397,6 +424,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                             Toast.makeText(context, "Taulukko on jo tyhjä!", Toast.LENGTH_SHORT).show()
                         }
 
+                        //Asetetaan muuttujat takaisin tyhjiksi uutta piirtoa varten.
                         hText = ""
                         kText = ""
                         rText = ""
@@ -436,32 +464,34 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                         "\ny = k + r * sin(t),  t=[0-2π]"
             )
 
-            //hidden text component to update UI via changing its state
             Text(text = uiUpdate)
         }
     }
 }
 
+//funktio neliöjuuren laskemiseen.
 private fun floatSquareRoot(num: Float): Float {
     var value = 0f
 
     if(num<0) {
         var absNum = abs(num)
         var eAbsSquareRoot = Expression("√$absNum")
-        value = eAbsSquareRoot.calculate().toFloat()//.formatToSinglePrecision().toFloat()
+        value = eAbsSquareRoot.calculate().toFloat()
     } else if(num>=0) {
         var eSquareRoot = Expression("√$num")
-        value = eSquareRoot.calculate().toFloat()//.formatToSinglePrecision().toFloat()
+        value = eSquareRoot.calculate().toFloat()
     }
 
     return value.toFloat()
 }
 
+//Funktio float arvon tarkistamiseen.
 private fun floatCheck(str: String): Boolean {
     val regex = Regex("[+-]?([0-9]*[.])?[0-9]+")
     return str.matches(regex)
 }
 
+//Funktio jolla varmistetaan, että syötetty arvo on positiivinen.
 private fun positiveNumberCheck(str: String): Boolean {
     val regex = Regex("^[+]?([.]\\d+|\\d+[.]?\\d*)\$")
     return str.matches(regex)

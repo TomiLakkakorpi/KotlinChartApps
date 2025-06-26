@@ -193,12 +193,16 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                         formula = text
                         if(formula.isNotEmpty()){
                             while(xValue <= xEnd) {
+
+                                //Määritellään x ja y argumentit.
                                 x = Argument("x=$xValue")
                                 y = Argument(formula, x)
                                 e = Expression("y", y)
 
+                                //Lisätään pisteet listaan.
                                 Calculator5lineChartList.add(Point(xValue, e.calculate().toFloat(), ""))
 
+                                //Lisätään x:n arvoon xIncrement verran seuraavaa laskukertaa varten.
                                 xValue = floatAddition(xValue, xIncrement)
                             }
                         } else {
@@ -219,6 +223,8 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                     onClick = {
                         if (Calculator5lineChartList.isNotEmpty()) {
                             while(Calculator5lineChartList.isNotEmpty()) {
+                                //Poistetaan listan arvo kohdasta listan koko -1, eli viimeinen arvo.
+                                //Tätä toistetaan kunnes lista on tyhjä
                                 Calculator5lineChartList.removeAt(Calculator5lineChartList.size -1)
                             }
 
@@ -228,6 +234,8 @@ fun GraphingCalculatorScreen5(navController: NavController) {
 
                             Calculator5squareXIndex = 0
                             Calculator5squareYIndex = 0
+                            Calculator5squareRootXIndex = 0
+                            Calculator5squareRootYIndex = 0
                         } else {
                             Toast.makeText(context, "Taulukko on jo tyhjä!", Toast.LENGTH_SHORT).show()
                         }
@@ -238,6 +246,7 @@ fun GraphingCalculatorScreen5(navController: NavController) {
             }
 
             Row() {
+                //Näppäin x² korottamiseen
                 Button(
                     modifier = Modifier.padding(5.dp, 5.dp, 5.dp, 5.dp),
                     shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
@@ -251,9 +260,17 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                             Toast.makeText(context, "x arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                         } else {
                             while(Calculator5squareXIndex < Calculator5lineChartList.size) {
+
+                                //Otetaan y:n arvo listasta index arvon kohdasta.
                                 val y = Calculator5lineChartList[Calculator5squareXIndex].y
+
+                                //Otetaan x:n arvo listasta index arvon kohdasta ja korotetaan se toiseen potenssiin.
                                 val x = floatSquared(Calculator5lineChartList[Calculator5squareXIndex].x)
+
+                                //Kun alkuperäinen y:n arvo, ja korotettu x:n arvo on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                 Calculator5lineChartList[Calculator5squareXIndex] = Point(x,y)
+
+                                //Lisätään index arvoa seuraavaa laskua varten.
                                 Calculator5squareXIndex++
                             }
 
@@ -266,6 +283,7 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                     Text("x²")
                 }
 
+                //Näppäin y² korottamiseen
                 Button(
                     modifier = Modifier.padding(5.dp, 5.dp, 5.dp, 5.dp),
                     shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
@@ -279,9 +297,17 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                             Toast.makeText(context, "y arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                         } else {
                             while(Calculator5squareYIndex < Calculator5lineChartList.size) {
+
+                                //Otetaan x:n arvo listasta index arvon kohdasta.
                                 val x = Calculator5lineChartList[Calculator5squareYIndex].x
+
+                                //Otetaan y:n arvo listasta index arvon kohdasta ja korotetaan se toiseen potenssiin.
                                 val y = floatSquared(Calculator5lineChartList[Calculator5squareYIndex].y)
+
+                                //Kun alkuperäinen x:n arvo, ja korotettu y:n arvo on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                 Calculator5lineChartList[Calculator5squareYIndex] = Point(x,y)
+
+                                //Lisätään index arvoa seuraavaa laskua varten.
                                 Calculator5squareYIndex++
                             }
                             text = " "
@@ -293,6 +319,7 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                     Text("y²")
                 }
 
+                //Näppäin x neliöjuuren laskemiseen
                 Button(
                     modifier = Modifier.padding(5.dp, 5.dp, 5.dp, 5.dp),
                     shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
@@ -306,9 +333,17 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                             Toast.makeText(context, "x arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                         } else {
                             while(Calculator5squareRootXIndex < Calculator5lineChartList.size) {
+
+                                //Otetaan y:n arvo listasta index arvon kohdasta.
                                 val y = Calculator5lineChartList[Calculator5squareRootXIndex].y
+
+                                //Otetaan x:n arvo listasta index arvon kohdasta ja lasketaan sen neliöjuuri.
                                 val x = floatSquareRoot(Calculator5lineChartList[Calculator5squareRootXIndex].x)
+
+                                //Kun alkuperäinen y:n arvo, ja x:n neliöjuuri on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                 Calculator5lineChartList[Calculator5squareRootXIndex] = Point(x,y)
+
+                                //Lisätään index arvoa seuraavaa laskua varten.
                                 Calculator5squareRootXIndex++
                             }
 
@@ -321,6 +356,7 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                     Text("²√x")
                 }
 
+                //Näppäin y neliöjuuren laskemiseen
                 Button(
                     modifier = Modifier.padding(5.dp, 5.dp, 5.dp, 5.dp),
                     shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
@@ -334,9 +370,17 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                             Toast.makeText(context, "y arvot on jo kerran muunnettu", Toast.LENGTH_SHORT).show()
                         } else {
                             while(Calculator5squareRootYIndex < Calculator5lineChartList.size) {
-                                val y = Calculator5lineChartList[Calculator5squareRootYIndex].x
-                                val x = floatSquareRoot(Calculator5lineChartList[Calculator5squareRootYIndex].y)
+
+                                //Otetaan x:n arvo listasta index arvon kohdasta.
+                                val x = Calculator5lineChartList[Calculator5squareRootYIndex].x
+
+                                //Otetaan y:n arvo listasta index arvon kohdasta ja lasketaan sen neliöjuuri.
+                                val y = floatSquareRoot(Calculator5lineChartList[Calculator5squareRootYIndex].y)
+
+                                //Kun alkuperäinen x:n arvo, ja y:n neliöjuuri on tiedossa, asetetaan arvot samaan kohtaan takaisin.
                                 Calculator5lineChartList[Calculator5squareRootYIndex] = Point(x,y)
+
+                                //Lisätään index arvoa seuraavaa laskua varten.
                                 Calculator5squareRootYIndex++
                             }
 
@@ -371,16 +415,20 @@ fun GraphingCalculatorScreen5(navController: NavController) {
     }
 }
 
+//Funktio kahden float arvon lisäämiseen
+//(Esimerkissä tuli vastaan erikoisia ongelmia, jossa suora num1 + num2 aiheutti ongelmia, siksi erillinen funktio)
 private fun floatAddition(numA: Float, numB: Float): Float {
     var value = numA + numB
     return value.formatToSinglePrecision().toFloat()
 }
 
+//Funkio potenssiin kaksi korottamiseen
 private fun floatSquared(num: Float): Float {
     var value = num*num
     return value.formatToSinglePrecision().toFloat()
 }
 
+//Funktio neliöjuuren laskemiseen
 private fun floatSquareRoot(num: Float): Float {
     var value = 0f
 
