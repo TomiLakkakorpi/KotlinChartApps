@@ -154,23 +154,6 @@ fun GraphingCalculatorScreen2(navController: NavController) {
                     fontWeight = FontWeight.Bold,
                     text = "Graafinen laskin 2: Yhden kaavan syöttö, säädettävä piirtoalue"
                 )
-
-                IconButton(
-                    modifier = Modifier
-                        .padding(20.dp, 20.dp, 0.dp, 0.dp),
-                    onClick = {
-
-                    }
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .height(50.dp)
-                            .width(50.dp),
-                        painter = painterResource(R.drawable.baseline_info_24),
-                        contentDescription = "Selected icon button"
-                    )
-                }
-
             }
 
             //Näytetään ruudun yläreunassa käyttäjälle piirretty kaava
