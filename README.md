@@ -11,22 +11,22 @@ Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon
 
 #### Projektin sisältö:  
 • ChartApplications: Tämä sovellus sisältää esimerkit alla luetelluista kaavioista:  
-  • Pylväskaavio  
-  • Viivakaavio  
-⋅⋅⋅* • Aaltokaavio  
-⋅⋅⋅* • Piirakkakaavio  
-⋅⋅⋅* • Donitsikaavio  
-⋅⋅⋅* • Kuplakaavio  
-⋅⋅⋅* • Yhdistetty kaavio (pylväskaavio & viivakaavio)  
+     • Pylväskaavio  
+     • Viivakaavio  
+     • Aaltokaavio  
+     • Piirakkakaavio  
+     • Donitsikaavio  
+     • Kuplakaavio  
+     • Yhdistetty kaavio (pylväskaavio & viivakaavio)  
 
 • GraphingCalculators: Tässä sovelluksessa on kaikki graafiset laskimet.  
-  • UserInputExample1 – Käyttäjän syöttämän datan käyttö  
-  • GraphingCalculator1 – Yhden kaavan piirtäminen (esim. y=5x²-4)  
-  • GraphingCalculator2 – Yhden kaavan piirtäminen, mukautettu piirtoalue ja laskentatiheys
-  • GraphingCalculator3 – Kahden kaavan piirtäminen (Kaavojen vertailumahdollisuus)  
-  • GraphingCalculator4 – Ympyrän piirtäminen  
-  • GraphingCalculator5 – Datanmuunnokset (potenssiin korotus, neliöjuuri)  
-  • GraphingCalculator6 – Esimerkit 1, 2, 3 & 5 yhdistetty viimeisteltyyn versioon.  
+     • UserInputExample1 – Käyttäjän syöttämän datan käyttö  
+     • GraphingCalculator1 – Yhden kaavan piirtäminen (esim. y=5x²-4)  
+     • GraphingCalculator2 – Yhden kaavan piirtäminen, mukautettu piirtoalue ja laskentatiheys
+     • GraphingCalculator3 – Kahden kaavan piirtäminen (Kaavojen vertailumahdollisuus)  
+     • GraphingCalculator4 – Ympyrän piirtäminen  
+     • GraphingCalculator5 – Datanmuunnokset (potenssiin korotus, neliöjuuri)  
+     • GraphingCalculator6 – Esimerkit 1, 2, 3 & 5 yhdistetty viimeisteltyyn versioon.  
 
 • YCharts ja MathParser -kirjastojen ohjedokumentti: Ohjetiedosto, jossa esimerkkejä käsitellään tarkemmin. Dokumentti sisältää myös ohjeet molempien tässä projektissa käytettyjen kirjastojen käyttöön.  
 
@@ -39,21 +39,21 @@ The goal of this project was to create example graphing applications and graphin
 
 #### This project’s contents:  
 • **ChartApplications:** This app contains examples for the basic graphing applications listed below:  
-  • BarChart  
-  • LineChart  
-  • WaveChart  
-  • PieCharts  
-  • DonutChart  
-  • BubbleChart  
-  • CombinedChart (BarChart & LineChart)  
+     • BarChart  
+     • LineChart  
+     • WaveChart  
+     • PieCharts  
+     • DonutChart  
+     • BubbleChart  
+     • CombinedChart (BarChart & LineChart)  
 
 • **GraphingCalculators:** This app contains the graphing calculators and user input example.  
-  • UserInputExample1 - Using user-entered values  
-  • GraphingCalculator1 – Drawing one formula (e.g. y=5x²-4)  
-  • GraphingCalculator2 – Drawing one formula with custom drawing area and counting density  
-  • GraphingCalculator3 – Drawing two formulas (possibility to compare two graphs)  
-  • GraphingCalculator4 – Drawing a circle  
-  • GraphingCalculator5 – Data transformations (exponentiation, square root)  
-  • GraphingCalculator6 – Features from examples 1, 2, 3 & 5 combined into one ”finished” calculator  
+     • UserInputExample1 - Using user-entered values  
+     • GraphingCalculator1 – Drawing one formula (e.g. y=5x²-4)  
+     • GraphingCalculator2 – Drawing one formula with custom drawing area and counting density  
+     • GraphingCalculator3 – Drawing two formulas (possibility to compare two graphs)  
+     • GraphingCalculator4 – Drawing a circle  
+     • GraphingCalculator5 – Data transformations (exponentiation, square root)  
+     • GraphingCalculator6 – Features from examples 1, 2, 3 & 5 combined into one ”finished” calculator  
 
 • YCharts ja MathParser -kirjastojen ohjedokumentti.docx: Instructional document made in finnish for finnish students, in which the examples are discussed in more detail. The document also contains instructions for both libraries used in this project.  
