@@ -1,6 +1,7 @@
 # (FIN/ENG) Kotlin kaaviosovelluksia ja graafisia laskimia  Kotlin Chart Applications & Graphing Calculators  
 
-## Esimerkkisovelluksia YCharts ja MathParser kirjastoja käyttämällä  Example applications made with YCharts and MathParser -libraries   
+## Esimerkkisovelluksia YCharts ja MathParser kirjastoja käyttämällä
+## Example applications made with YCharts and MathParser -libraries   
 
 ### (FIN) Yhteenveto (In English below)  
 Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon sekä graafisia laskimia. Esimerkit ovat suunnattu Oulun ammattikorkeakoulun suomenkielisille opiskelijoille ja esimerkit on kommentoitu suomeksi projektin toimeksiantajan pyynnöstä.  
