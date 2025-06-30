@@ -30,6 +30,9 @@ Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon
      • GraphingCalculator5 – Datanmuunnokset (potenssiin korotus, neliöjuuri)  
      • GraphingCalculator6 – Esimerkit 1, 2, 3 & 5 yhdistetty viimeisteltyyn versioon.  
 
+**CustomUIComponent1:** Tässä esimerkissä ei käytetä kumpaakaan kirjastoa, mitä muissa esimerkeissä käytetään. Esimerkki on kuitenkin projektissa mukana, näyttämässä että dataa voidaan visualisoida myös ilman kirjastoja. 
+Esimerkin alkuperäinen tekijä: Stevdza-San [Custom UI Component with Jetpack Compose & Canvas | Part #1 - Preview](https://youtu.be/XuZvHKwD_iM?si=OyuhhgWdmC3G9She)
+
 **YCharts ja MathParser -kirjastojen ohjedokumentti.docx:** Ohjetiedosto, jossa esimerkkejä käsitellään tarkemmin. Dokumentti sisältää myös ohjeet molempien tässä projektissa käytettyjen kirjastojen käyttöön.  
 
 #### Käyttöohjeet:
@@ -82,6 +85,9 @@ The goal of this project was to create example graphing applications and graphin
      • GraphingCalculator4 – Drawing a circle  
      • GraphingCalculator5 – Data transformations (exponentiation, square root)  
      • GraphingCalculator6 – Features from examples 1, 2, 3 & 5 combined into one ”finished” calculator  
+
+**CustomUIComponent1:** This example doesn't use either of the libraries that are used in the other examples. However, the example is included in this project to show that data visualization can be done without libraries.
+Original author of the example: Stevdza-San [Custom UI Component with Jetpack Compose & Canvas | Part #1 - Preview](https://youtu.be/XuZvHKwD_iM?si=OyuhhgWdmC3G9She)
 
 **YCharts ja MathParser -kirjastojen ohjedokumentti.docx:** Instructional document made in finnish for finnish students, in which the examples are discussed in more detail. The document also contains instructions for both libraries used in this project.  
 
