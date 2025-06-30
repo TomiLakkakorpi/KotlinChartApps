@@ -37,10 +37,24 @@ fun HomeScreen(navController: NavHostController) {
                 ),
                 onClick = {
 
+                    navController.navigate(route = Screen.UserInputExample1Screen.route)
+                }
+            ) {
+                Text("Yksittäisten arvojen syöttö")
+            }
+
+            Button(
+                shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Green,
+                    contentColor = Color.Black
+                ),
+                onClick = {
+
                     navController.navigate(route = Screen.GraphingCalculatorScreen1.route)
                 }
             ) {
-                Text("1: Yksi Kaava")
+                Text("Laskin 1: Yksi Kaava")
             }
 
             Button(
@@ -54,7 +68,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen2.route)
                 }
             ) {
-                Text("2: Yksi Kaava, mukautettu piirtoalue")
+                Text("Laskin 2: Yksi Kaava, mukautettu piirtoalue")
             }
 
             Button(
@@ -68,7 +82,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen3.route)
                 }
             ) {
-                Text("3: Kaksi Kaavaa")
+                Text("Laskin 3: Kaksi Kaavaa")
             }
 
             Button(
@@ -82,7 +96,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen4.route)
                 }
             ) {
-                Text("4: Ympyrän piirto")
+                Text("Laskin 4: Ympyrän piirto")
             }
 
             Button(
@@ -96,7 +110,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen5.route)
                 }
             ) {
-                Text("5: Datan muunnos")
+                Text("Laskin 5: Datan muunnos")
             }
 
             Button(
@@ -109,7 +123,7 @@ fun HomeScreen(navController: NavHostController) {
                     navController.navigate(route = Screen.GraphingCalculatorScreen6.route)
                 }
             ) {
-                Text("6: Ominaisuudet yhdistetty")
+                Text("Laskin 6: Ominaisuudet yhdistetty")
             }
         }
     }

@@ -19,6 +19,13 @@ fun SetupNavGraph(
 
         //
         composable(
+            route = Screen.UserInputExample1Screen.route
+        ) {
+            UserInputExample1Screen(navController)
+        }
+
+        //
+        composable(
             route = Screen.GraphingCalculatorScreen1.route
         ) {
             GraphingCalculatorScreen1(navController)

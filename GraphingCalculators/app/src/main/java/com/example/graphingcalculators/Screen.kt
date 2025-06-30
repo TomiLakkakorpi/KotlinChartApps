@@ -2,6 +2,7 @@ package com.example.graphingcalculators
 
 sealed class Screen(val route: String) {
     object Home: Screen(route = "home_screen")
+    object UserInputExample1Screen: Screen(route = "userinputexample1_screen")
     object GraphingCalculatorScreen1: Screen(route = "graphingcalculator1_screen")
     object GraphingCalculatorScreen2: Screen(route = "graphingcalculator2_screen")
     object GraphingCalculatorScreen3: Screen(route = "graphingcalculator3_screen")

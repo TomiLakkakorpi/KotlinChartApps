@@ -965,7 +965,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     Text("Piirrä kaava(t)")
                 }
 
-                //Position 4.2
+                //Näppäin käyrän pituuden laskemiseen
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -1033,7 +1033,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     Text("Laske pituus")
                 }
 
-                //Position 4.3
+                //Näppäin kaavojen tyhjentämiseen
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
@@ -1098,7 +1098,7 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     Text("Tyhjennä kaavat")
                 }
 
-                //Position 4.4
+                //Näppäin jolla palataan takaisin päävalikkoon
                 Button(
                     modifier = Modifier
                         .padding(5.dp, 1.dp, 5.dp, 1.dp)
