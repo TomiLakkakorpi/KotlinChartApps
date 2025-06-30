@@ -5,15 +5,15 @@
 ### (FIN) Yhteenveto (In English below)  
 Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon sekä graafisia laskimia. Esimerkit ovat suunnattu Oulun ammattikorkeakoulun suomenkielisille opiskelijoille ja esimerkit on kommentoitu suomeksi projektin toimeksiantajan pyynnöstä.  
 
-Projektissa käytetyt kirjastot:  
+#### Projektissa käytetyt kirjastot:  
 • [YCharts](https://github.com/codeandtheory/YCharts)  
 • [MathParser](https://github.com/mariuszgromada/MathParser.org-mXparser)  
 
-Projektin sisältö:  
+#### Projektin sisältö:  
 • ChartApplications: Tämä sovellus sisältää esimerkit alla luetelluista kaavioista:  
-  • Pylväskaavio  
-  • Viivakaavio  
-  • Aaltokaavio  
+....• Pylväskaavio  
+....• Viivakaavio  
+....• Aaltokaavio  
   • Piirakkakaavio  
   • Donitsikaavio  
   • Kuplakaavio  
@@ -33,11 +33,11 @@ Projektin sisältö:
 ### (ENG) Summary  
 The goal of this project was to create example graphing applications and graphing calculators. These examples were made for finnish students at Oulu University of Applied Sciences. The examples have been commented in Finnish at the request of the project's client. Although the examples were made for finnish students, any English-speaking users may also utilize these examples.   
 
-Libraries used in this project:  
+#### Libraries used in this project:  
 • [YCharts](https://github.com/codeandtheory/YCharts)  
 • [MathParser](https://github.com/mariuszgromada/MathParser.org-mXparser)  
 
-This project’s contents:  
+#### This project’s contents:  
 • **ChartApplications:** This app contains examples for the basic graphing applications listed below:  
   • BarChart  
   • LineChart  
