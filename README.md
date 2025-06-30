@@ -11,8 +11,8 @@ Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon
 
 #### Projektin sisältö:  
 • ChartApplications: Tämä sovellus sisältää esimerkit alla luetelluista kaavioista:  
-⋅⋅⋅* • Pylväskaavio  
-⋅⋅⋅* • Viivakaavio  
+  • Pylväskaavio  
+  • Viivakaavio  
 ⋅⋅⋅* • Aaltokaavio  
 ⋅⋅⋅* • Piirakkakaavio  
 ⋅⋅⋅* • Donitsikaavio  
