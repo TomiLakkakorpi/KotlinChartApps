@@ -11,18 +11,18 @@ Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon
 
 #### Projektin sisältö:  
 • ChartApplications: Tämä sovellus sisältää esimerkit alla luetelluista kaavioista:  
-....* • Pylväskaavio  
-....* • Viivakaavio  
-....* • Aaltokaavio  
-....* • Piirakkakaavio  
-....* • Donitsikaavio  
-....* • Kuplakaavio  
-....* • Yhdistetty kaavio (pylväskaavio & viivakaavio)  
+⋅⋅⋅* • Pylväskaavio  
+⋅⋅⋅* • Viivakaavio  
+⋅⋅⋅* • Aaltokaavio  
+⋅⋅⋅* • Piirakkakaavio  
+⋅⋅⋅* • Donitsikaavio  
+⋅⋅⋅* • Kuplakaavio  
+⋅⋅⋅* • Yhdistetty kaavio (pylväskaavio & viivakaavio)  
 
 • GraphingCalculators: Tässä sovelluksessa on kaikki graafiset laskimet.  
   • UserInputExample1 – Käyttäjän syöttämän datan käyttö  
   • GraphingCalculator1 – Yhden kaavan piirtäminen (esim. y=5x²-4)  
-  • GraphingCalculator2 – Yhden kaavan piirtäminen, mukautettu piirtoalue ja laskentatiheys)  
+  • GraphingCalculator2 – Yhden kaavan piirtäminen, mukautettu piirtoalue ja laskentatiheys
   • GraphingCalculator3 – Kahden kaavan piirtäminen (Kaavojen vertailumahdollisuus)  
   • GraphingCalculator4 – Ympyrän piirtäminen  
   • GraphingCalculator5 – Datanmuunnokset (potenssiin korotus, neliöjuuri)  
