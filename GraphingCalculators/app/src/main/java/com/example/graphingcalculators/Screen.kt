@@ -9,4 +9,5 @@ sealed class Screen(val route: String) {
     object GraphingCalculatorScreen4: Screen(route = "graphingcalculator4_screen")
     object GraphingCalculatorScreen5: Screen(route = "graphingcalculator5_screen")
     object GraphingCalculatorScreen6: Screen(route = "graphingcalculator6_screen")
+    object GraphingCalculatorScreen7: Screen(route = "graphingcalculator7_screen")
 }
