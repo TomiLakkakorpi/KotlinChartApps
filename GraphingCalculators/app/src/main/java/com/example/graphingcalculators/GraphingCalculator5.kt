@@ -152,7 +152,7 @@ fun GraphingCalculatorScreen5(navController: NavController) {
                 modifier = Modifier.padding(10.dp, 20.dp, 0.dp, 0.dp),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                text = "Graafinen laskin 5: Datan muunnos"
+                text = "Graafinen laskin 5: \nDatan muunnos"
             )
 
             Text(

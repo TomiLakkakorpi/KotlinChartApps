@@ -28,6 +28,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -292,6 +293,13 @@ fun GraphingCalculatorScreen6(navController: NavController) {
                     .fillMaxHeight()
             ) {
                 Column() {
+                    Text(
+                        modifier = Modifier.padding(5.dp, 0.dp, 0.dp, 0.dp),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        text = "Graafinen laskin 6: \nOminaisuudet yhdistetty"
+                    )
+
                     Row() {
                         Column() {
                             Text(

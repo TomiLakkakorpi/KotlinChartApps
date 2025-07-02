@@ -208,7 +208,7 @@ fun GraphingCalculatorScreen4(navController: NavController) {
                 modifier = Modifier.padding(20.dp),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                text = "Graafinen laskin 4: Ympyrän piirto"
+                text = "Graafinen laskin 4: \nYmpyrän piirto"
             )
 
             Box(

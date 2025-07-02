@@ -142,7 +142,7 @@ fun GraphingCalculatorScreen1(navController: NavController) {
                 modifier = Modifier.padding(10.dp, 20.dp, 0.dp, 0.dp),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                text = "Graafinen laskin 1: Yhden kaavan syöttö"
+                text = "Graafinen laskin 1: \nYhden kaavan syöttö"
             )
 
             //Näytetään ruudun yläreunassa käyttäjälle piirretty kaava
