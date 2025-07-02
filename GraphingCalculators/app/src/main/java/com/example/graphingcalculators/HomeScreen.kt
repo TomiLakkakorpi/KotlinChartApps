@@ -138,6 +138,19 @@ fun HomeScreen(navController: NavHostController) {
             ) {
                 Text("Laskin 7: Parametrikäyrä kolmella argumentilla")
             }
+
+            Button(
+                shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Green,
+                    contentColor = Color.Black
+                ),
+                onClick = {
+                    navController.navigate(route = Screen.GraphingCalculatorScreen8.route)
+                }
+            ) {
+                Text("Laskin 8: PNS -suora")
+            }
         }
     }
 }
