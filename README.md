@@ -30,7 +30,7 @@ Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon
      • GraphingCalculator7 – Parametrinen käyrä, käyrän piirtäminen kolmella parametrilla (x:n kaava, y:n kaava & arvo (t))  
      • GraphingCalculator8 – PNS -suora (Pienimmän neliön suora). Esimerkki, jossa PNS -suora voidaan laskea esimerkkidatalle.
 
-**YCharts ja MathParser -kirjastojen ohjedokumentti.docx:** Ohjetiedosto, jossa esimerkkejä käsitellään tarkemmin. Dokumentti sisältää myös ohjeet molempien tässä projektissa käytettyjen kirjastojen käyttöön.  
+**YCharts ja MathParser ohjedokumentti.pdf:** Ohjetiedosto, jossa esimerkkejä käsitellään tarkemmin. Dokumentti sisältää myös ohjeet molempien tässä projektissa käytettyjen kirjastojen käyttöön.  
 
 #### Käyttöohjeet:
 Jos käytät Github Desktop -sovellusta:  
@@ -85,7 +85,7 @@ The goal of this project was to create example graphing applications and graphin
      • GraphingCalculator7 – Parametric graph, plotting a graph with three parameters (x formula, y formula & value (t))  
      • GraphingCalculator8 – OLS line (Ordinary Least Squares). Example where the OLS -line, can be calculated for example data.
 
-**YCharts ja MathParser -kirjastojen ohjedokumentti.docx:** Instructional document made in finnish for finnish students, in which the examples are discussed in more detail. The document also contains instructions for both libraries used in this project.  
+**YCharts ja MathParser ohjedokumentti.pdf:** Instructional document made in finnish for finnish students, in which the examples are discussed in more detail. The document also contains instructions for both libraries used in this project.  
 
 #### Instructions:
 If you are using the Github Desktop application:
