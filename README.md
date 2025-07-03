@@ -27,6 +27,8 @@ Tämän projektin tavoitteena oli luoda esimerkkisovelluksia kaavioiden piirtoon
      • GraphingCalculator4 – Ympyrän piirtäminen  
      • GraphingCalculator5 – Datanmuunnokset (potenssiin korotus, neliöjuuri)  
      • GraphingCalculator6 – Esimerkit 1, 2, 3 & 5 yhdistetty viimeisteltyyn versioon.  
+     • GraphingCalculator7 – Parametrinen käyrä, käyrän piirtäminen kolmella parametrilla (x:n kaava, y:n kaava & arvo (t))
+     • GraphingCalculator8 – PNS -suora (Pienimmän neliön suora). Esimerkki, jossa PNS -suora voidaan laskea esimerkkidatalle.
 
 **YCharts ja MathParser -kirjastojen ohjedokumentti.docx:** Ohjetiedosto, jossa esimerkkejä käsitellään tarkemmin. Dokumentti sisältää myös ohjeet molempien tässä projektissa käytettyjen kirjastojen käyttöön.  
 
@@ -80,6 +82,8 @@ The goal of this project was to create example graphing applications and graphin
      • GraphingCalculator4 – Drawing a circle  
      • GraphingCalculator5 – Data transformations (exponentiation, square root)  
      • GraphingCalculator6 – Features from examples 1, 2, 3 & 5 combined into one ”finished” calculator  
+     • GraphingCalculator7 – Parametric graph, plotting a graph with three parameters (x formula, y formula & value (t))
+     • GraphingCalculator8 – OLS line (Ordinary Least Squares). Example where the OLS -line, can be calculated for example data.
 
 **YCharts ja MathParser -kirjastojen ohjedokumentti.docx:** Instructional document made in finnish for finnish students, in which the examples are discussed in more detail. The document also contains instructions for both libraries used in this project.  
 
